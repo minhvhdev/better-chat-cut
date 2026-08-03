@@ -15,6 +15,10 @@ Reusable motion runtime for Better Chat Cut.
 
 Composite registry can load **verified** user sandboxed bundles (staging/published). Authoring lives in `packages/motion-authoring-sdk` + `packages/motion-source-pipeline`.
 
+## M3A
+
+`composeMotionAnimationTransforms` is the shared animation composer used by scene frame evaluation. Scenes never register draft candidate bundles into the normal runtime.
+
 ## Verify
 
 ```bash

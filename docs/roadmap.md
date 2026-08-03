@@ -32,16 +32,25 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M2B complete** when restricted authoring SDK, source pipeline, Chromium sandbox preview, prepare-staging, and MCP tools pass verification.
 
-**Next:** M3A — Scene Graph Schema, Scene Runtime and Scene Preview
+**M3A complete** when SceneDocumentV1, scene runtime evaluation, Remotion scene still/contact-sheet, and read-only `scene_*` MCP tools pass verification. M3A is **inline/read-only** only — no scene persistence or timeline integration.
+
+**Next:** M3B — Batch Asset Requirement Planner and Asset Resolver
 
 ## Milestone 3 — Asset Resolver
 
-* Batch requirements.
+* Batch requirements. *(M3B planned)*
 * Reuse.
 * Variant.
 * Composition.
 * Similarity check.
 * Chống tạo asset trùng.
+
+## Milestone 3A — Scene Graph (done when criteria pass)
+
+* SceneDocumentV1 schema + validation
+* Scene runtime / world transforms
+* Remotion scene preview
+* MCP `scene_get_contract`, `scene_validate`, `scene_evaluate_frame`, `scene_render_preview`
 
 ## Milestone 4 — MCP Scene Tools
 
@@ -49,9 +58,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 * Resolve asset.
 * Compose scene.
 * Patch scene.
-* Validate scene.
-* Render frame.
-* Render contact sheet.
+* Validate scene. *(basic validate in M3A)*
+* Render frame. *(M3A still)*
+* Render contact sheet. *(M3A)*
 
 ## Milestone 5 — Video Pipeline
 
@@ -68,4 +77,4 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 ## Status
 
-M0, M1A, M1B, M2A, and M2B are implemented on `main`. Later milestones require separate design approval before implementation.
+M0, M1A, M1B, M2A, M2B, and M3A are implemented on `main`. Later milestones require separate design approval before implementation.

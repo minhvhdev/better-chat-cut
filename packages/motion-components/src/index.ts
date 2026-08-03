@@ -18,6 +18,15 @@ export {
   validateMotionProps,
 } from './runtime/registry.ts';
 
+export {
+  composeMotionAnimationTransforms,
+  getAnimationDefinition,
+  isLoopAnimation,
+  LOOP_ANIMATION_IDS,
+  type AnimationApplyRequest,
+  type ComposedMotionTransform,
+} from './runtime/compose-animations.ts';
+
 export { ensureBetterChatCutMotionRuntime } from './bootstrap.ts';
 
 // React/Remotion renderer is imported directly by remotion/better-chat-cut/*

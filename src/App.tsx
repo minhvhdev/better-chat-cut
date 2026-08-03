@@ -14,6 +14,7 @@ import { applyAgentModelStatus, applyCodexAgentStatus } from './agent/model-sele
 import { useT } from './i18n/locale';
 
 const Editor = lazy(() => import('./Editor'));
+const ProductionWorkspace = lazy(() => import('./better-chat-cut/production-workspace/ProductionWorkspace'));
 
 // A brand-new project starts empty; the first-run "Sample Project" gets the seed clips.
 const emptyState = (): TimelineState => ({
@@ -28,9 +29,17 @@ const emptyState = (): TimelineState => ({
 const emptyDoc = (): ProjectDoc => docFromTimeline(emptyState());
 const seedDoc = async (): Promise<ProjectDoc> => docFromTimeline((await import('./editor/initial')).INITIAL);
 
-type Route = { name: 'dashboard' } | { name: 'editor'; id: string };
+type Route =
+  | { name: 'dashboard' }
+  | { name: 'editor'; id: string }
+  | { name: 'production-workspace' };
+
 function parseHash(): Route {
-  const m = window.location.hash.match(/^#\/editor\/(.+)$/);
+  const hash = window.location.hash;
+  if (/^#\/(production-workspace|workspace)(\/|$)/.test(hash)) {
+    return { name: 'production-workspace' };
+  }
+  const m = hash.match(/^#\/editor\/(.+)$/);
   return m ? { name: 'editor', id: m[1] } : { name: 'dashboard' };
 }
 const go = (hash: string) => { window.location.hash = hash; };
@@ -135,10 +144,22 @@ export default function App() {
     );
   }
 
+  if (route.name === 'production-workspace') {
+    return (
+      <Suspense fallback={<Splash text={t('加载中…')} />}>
+        <ProductionWorkspace
+          onHome={() => go('#/')}
+          onOpenProject={(id) => go(`#/editor/${id}`)}
+        />
+      </Suspense>
+    );
+  }
+
   return (
     <Dashboard
       projects={projects}
       onOpen={(id) => go(`#/editor/${id}`)}
+      onOpenProduction={() => go('#/production-workspace')}
       onNew={async () => { const m = await createProject(randomProjectName(), emptyDoc()); await refresh(); go(`#/editor/${m.id}`); }}
       onRename={async (id, name) => { await renameProject(id, name); refresh(); }}
       onDuplicate={async (id) => { await duplicateProject(id); refresh(); }}

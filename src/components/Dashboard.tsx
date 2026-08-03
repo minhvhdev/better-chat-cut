@@ -14,6 +14,8 @@ import { ShortcutsDialog } from '../shortcuts/ShortcutsDialog';
 interface DashboardProps {
   projects: ProjectMeta[];
   onOpen: (id: string) => void;
+  /** Open Better Chat Cut Production Workspace (M7A). */
+  onOpenProduction?: () => void;
   onNew: () => void;
   onRename: (id: string, name: string) => void;
   onDuplicate: (id: string) => void;
@@ -96,7 +98,7 @@ function ProjectSearch({ value, onChange }: { value: string; onChange: (value: s
   );
 }
 
-export function Dashboard({ projects, onOpen, onNew, onRename, onDuplicate, onDelete, onExport, onImport }: DashboardProps) {
+export function Dashboard({ projects, onOpen, onOpenProduction, onNew, onRename, onDuplicate, onDelete, onExport, onImport }: DashboardProps) {
   const t = useT();
   const modelSnapshot = useSyncExternalStore(subscribeAgentModels, getAgentModelSnapshot);
   const [query, setQuery] = useState('');
@@ -185,6 +187,11 @@ export function Dashboard({ projects, onOpen, onNew, onRename, onDuplicate, onDe
         <OpenChatCutWordmark />
         <span style={{ color: theme.textDim, fontSize: 13 }}>{t('· 我的工程')}</span>
         <span style={{ marginLeft: 'auto', display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+          {onOpenProduction && (
+            <button onClick={onOpenProduction} title="Production Workspace" className="cc-header-btn" style={settingsBtn}>
+              Production
+            </button>
+          )}
           <button onClick={() => setMcpOpen(true)} title={t('外部 Agent 接入 (MCP)')} className="cc-header-btn" style={settingsBtn}>
             <Icon name="plug" size={16} />
           </button>

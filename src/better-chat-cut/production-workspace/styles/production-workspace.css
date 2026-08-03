@@ -1,0 +1,222 @@
+/**
+Production Workspace styles — uses existing theme tokens, reduced-motion friendly.
+*/
+.bcc-ws-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--cc-text, #e8e8ec);
+  background: var(--cc-bg, #12141a);
+}
+
+.bcc-ws-layout {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+
+.bcc-ws-sidebar {
+  border-right: 0.5px solid var(--cc-border, #2a2d38);
+  background: var(--cc-panel, #1a1d27);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bcc-ws-nav-btn {
+  text-align: left;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.bcc-ws-nav-btn[aria-current="page"],
+.bcc-ws-nav-btn:hover {
+  background: color-mix(in srgb, var(--cc-accent, #6ea8fe) 18%, transparent);
+}
+
+.bcc-ws-main {
+  min-width: 0;
+  overflow: auto;
+  padding: 20px 24px 48px;
+}
+
+.bcc-ws-top {
+  height: 48px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 0.5px solid var(--cc-border, #2a2d38);
+  background: var(--cc-panel, #1a1d27);
+}
+
+.bcc-ws-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 0.5px solid var(--cc-border, #2a2d38);
+}
+
+.bcc-ws-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.bcc-ws-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.bcc-ws-card {
+  border: 0.5px solid var(--cc-border, #2a2d38);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--cc-panel, #1a1d27) 80%, transparent);
+}
+
+.bcc-ws-card button.linkish {
+  background: none;
+  border: 0;
+  color: var(--cc-accent, #6ea8fe);
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.bcc-ws-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.bcc-ws-table th,
+.bcc-ws-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 0.5px solid var(--cc-border, #2a2d38);
+  vertical-align: top;
+}
+
+.bcc-ws-table th {
+  color: var(--cc-text-dim, #9aa0b0);
+  font-weight: 550;
+}
+
+.bcc-ws-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.bcc-ws-stage-item {
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
+  gap: 10px;
+  align-items: start;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 0.5px solid var(--cc-border, #2a2d38);
+}
+
+.bcc-ws-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bcc-ws-actions button {
+  font-size: 12.5px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 0.5px solid var(--cc-border, #2a2d38);
+  background: var(--cc-panel, #1a1d27);
+  color: inherit;
+  cursor: pointer;
+}
+
+.bcc-ws-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bcc-ws-actions button.danger {
+  border-color: #a44;
+  color: #f99;
+}
+
+.bcc-ws-editor {
+  width: 100%;
+  min-height: 180px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 0.5px solid var(--cc-border, #2a2d38);
+  background: #0e1016;
+  color: inherit;
+  resize: vertical;
+}
+
+.bcc-ws-muted {
+  color: var(--cc-text-dim, #9aa0b0);
+  font-size: 12.5px;
+}
+
+.bcc-ws-error {
+  border: 0.5px solid #a44;
+  background: color-mix(in srgb, #a44 12%, transparent);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 8px 0;
+}
+
+.bcc-ws-empty {
+  padding: 28px 12px;
+  text-align: center;
+  color: var(--cc-text-dim, #9aa0b0);
+}
+
+.bcc-ws-focus:focus-visible,
+.bcc-ws-nav-btn:focus-visible,
+.bcc-ws-actions button:focus-visible,
+.bcc-ws-editor:focus-visible {
+  outline: 2px solid var(--cc-accent, #6ea8fe);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .bcc-ws-layout {
+    grid-template-columns: 1fr;
+  }
+  .bcc-ws-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: 0;
+    border-bottom: 0.5px solid var(--cc-border, #2a2d38);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bcc-ws-root * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

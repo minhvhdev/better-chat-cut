@@ -7,14 +7,37 @@ import {
   getMotionTheme,
   validateMotionProps,
 } from '../runtime/registry.ts';
+import { SandboxedUserMotion } from './SandboxedUserMotion.tsx';
 
 export type MotionAssetRendererProps = MotionAssetPreviewInput & {
   frameOverride?: number;
+  /** Candidate preview: evaluate bundle without registering in normal runtime. */
+  candidateBundle?: {
+    code: string;
+    props?: Record<string, unknown>;
+  };
 };
 
 export function MotionAssetRenderer(input: MotionAssetRendererProps) {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
+  const theme = getMotionTheme(input.themeId ?? 'default') ?? getMotionTheme('default')!;
+  const localFrame = input.frameOverride ?? frame;
+
+  if (input.candidateBundle) {
+    return (
+      <AbsoluteFill style={{ backgroundColor: input.background ?? theme.colors.background }}>
+        <div style={{ width, height, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <SandboxedUserMotion
+            bundleCode={input.candidateBundle.code}
+            componentProps={input.candidateBundle.props ?? input.props ?? {}}
+            theme={theme}
+          />
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
   const definition = getMotionComponent(input.assetId, input.version);
   if (!definition) {
     return (
@@ -24,10 +47,7 @@ export function MotionAssetRenderer(input: MotionAssetRendererProps) {
     );
   }
 
-  const theme = getMotionTheme(input.themeId ?? 'default') ?? getMotionTheme('default')!;
   const validated = validateMotionProps(definition.propsSchema, input.props ?? {}, definition.defaultProps);
-  const Component = definition.component;
-  const localFrame = input.frameOverride ?? frame;
   const animation = input.animationId ? getMotionAnimation(input.animationId) : undefined;
   const transform = animation?.apply({
     frame: localFrame,
@@ -35,6 +55,20 @@ export function MotionAssetRenderer(input: MotionAssetRendererProps) {
     durationInFrames,
     props: input.animationProps,
   }) ?? {};
+
+  const inner = definition.sandboxedBundle
+    ? (
+      <SandboxedUserMotion
+        bundleCode={definition.sandboxedBundle.code}
+        componentProps={validated.normalizedProps}
+        theme={theme}
+      />
+    )
+    : definition.component
+      ? React.createElement(definition.component, { ...validated.normalizedProps, theme } as never)
+      : (
+        <div style={{ color: '#f88' }}>No component implementation</div>
+      );
 
   return (
     <AbsoluteFill style={{ backgroundColor: input.background ?? theme.colors.background }}>
@@ -54,7 +88,7 @@ export function MotionAssetRenderer(input: MotionAssetRendererProps) {
           ].filter(Boolean).join(' ') || undefined,
         }}
       >
-        <Component {...validated.normalizedProps} theme={theme} />
+        {inner}
       </div>
     </AbsoluteFill>
   );

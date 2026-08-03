@@ -4,6 +4,7 @@ export type {
   MotionComponentDefinition,
   MotionThemeDefinition,
   MotionValidationIssue,
+  SandboxedMotionBundle,
 } from './contracts/motion-types.ts';
 
 export {

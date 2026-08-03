@@ -19,13 +19,24 @@ export type MotionPreviewSpec = {
   contactSheetFrames: number[];
 };
 
+/** Authored user bundle evaluated only inside Remotion Chromium (never Node import/vm). */
+export type SandboxedMotionBundle = {
+  code: string;
+  exportName: string;
+  buildHash: string;
+  sourceHash: string;
+};
+
 export type MotionComponentDefinition<TProps extends Record<string, unknown> = Record<string, unknown>> = {
   assetId: string;
   assetVersion: string;
   displayName: string;
   description: string;
   kind: MotionKind;
-  component: ComponentType<TProps>;
+  /** Built-in React component. Optional when sandboxedBundle is set. */
+  component?: ComponentType<TProps>;
+  /** Verified user runtime: bundle string passed into Remotion sandbox host. */
+  sandboxedBundle?: SandboxedMotionBundle;
   defaultProps: TProps;
   propsSchema?: Record<string, unknown>;
   preview: MotionPreviewSpec;

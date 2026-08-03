@@ -22,6 +22,15 @@ Do not claim the live timeline changed while status is still `drafting` / `await
 5. `scene_clip_sync`
 6. `review_edit_session` → applied
 
+## Multi-scene VideoPlan (M5A)
+
+1. `scene_draft_get_binding_payload` for each scene
+2. Build `VideoPlanV1` → `video_plan_validate`
+3. `target_project` → `begin_edit_session`
+4. `video_plan_preview_assembly` → `video_plan_assemble`
+5. `video_plan_inspect_assembly` → `video_plan_validate_render`
+6. `review_edit_session` → applied (one undo step for the whole sequence)
+
 ## Guarantees
 
 - Manual sessions leave the live project untouched until approval

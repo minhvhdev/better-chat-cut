@@ -69,6 +69,7 @@ const VERB: Record<string, string> = {
   browse_library: '浏览资源库',
   scene_clip_bind: 'Add Better Chat Cut scene clip',
   scene_clip_sync: 'Sync Better Chat Cut scene clip',
+  video_plan_assemble: 'Assemble Better Chat Cut VideoPlan',
 };
 
 function targetOf(args: Record<string, unknown>, actions: AnyAction[]): string {

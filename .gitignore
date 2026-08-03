@@ -107,6 +107,11 @@ docs/*
 !docs/scene-timeline-clips.md
 !docs/scene-clip-sync.md
 !docs/scene-edit-session-workflow.md
+!docs/video-plan-v1.md
+!docs/video-plan-scheduling.md
+!docs/video-plan-timeline-assembly.md
+!docs/video-plan-render-validation.md
+!/video-plan-v1.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

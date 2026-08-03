@@ -61,6 +61,8 @@ Better Chat Cut
 | `packages/scene-graph/` | SceneDocumentV1 schema, frame evaluation, Remotion scene preview (M3A) |
 | `packages/scene-drafts/` | Persistent scene drafts, AssetPlan→Scene composition, semantic patching (M4A) |
 | `packages/project-scene-bindings/` | SceneClipBindingV1, timeline scene clips, sync/readiness, timeline renderer seam (M4B) |
+| `packages/video-plans/` | VideoPlanV1 schema, hash, deterministic schedule (M5A) |
+| `packages/project-video-assembly/` | Timeline assembly, inspection, TimelineComposition render validation (M5A) |
 | `packages/scene-templates/` | Scene composition templates (planned) |
 | `packages/better-chat-cut-mcp/` | Extra semantic MCP tools beyond thin adapters (planned) |
 | `extensions/better-chat-cut/` | Catalog manifests + thin integration glue |

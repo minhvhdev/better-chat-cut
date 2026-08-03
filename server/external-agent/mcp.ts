@@ -24,6 +24,8 @@ import {
   type EditorBinding,
 } from './broker.ts';
 import { createExternalProject, listExternalProjects } from './projects.ts';
+import { ASSET_SEARCH_TOOL, runAssetSearch } from './better-chat-cut/asset-search.ts';
+import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 
 export const OPENCHATCUT_SKILL_BASELINE = '2026-08-01.1';
 export const MCP_SESSION_IDLE_LIMIT_MS = 60 * 60 * 1000;
@@ -87,6 +89,12 @@ const CONTROL_TOOLS: Tool[] = [
       properties: { projectId: { type: 'string' }, editorBaseUrl: { type: 'string' } },
     },
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+  {
+    name: ASSET_SEARCH_TOOL.name,
+    description: ASSET_SEARCH_TOOL.description,
+    inputSchema: ASSET_SEARCH_TOOL.inputSchema,
+    annotations: ASSET_SEARCH_TOOL.annotations,
   },
 ];
 
@@ -245,6 +253,16 @@ async function callControlTool(
   if (name === 'get_editor_url') {
     const projectId = projectForRead(session, args.projectId);
     return { projectId, editorUrl: editorUrl(args, projectId, baseUrl) };
+  }
+  if (name === ASSET_SEARCH_TOOL.name) {
+    try {
+      return await runAssetSearch(args);
+    } catch (error) {
+      if (error instanceof AssetRegistryError) {
+        throw new ExternalEditorCallError('rejected', error.message);
+      }
+      throw error;
+    }
   }
   return undefined;
 }

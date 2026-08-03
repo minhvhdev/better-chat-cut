@@ -1,0 +1,1 @@
+﻿{"schemaVersion":"1.0.0","id":"animation.orbit","version":"1.0.0","name":"Orbit","description":"Orbit animation preset around a center point.","kind":"animation","status":"published","categories":["motion","astronomy"],"tags":["orbit","loop"],"capabilities":["orbit","loop"],"implementation":{"type":"builtin","entry":"presets/orbit.json"},"license":{"spdx":"AGPL-3.0-or-later"}}

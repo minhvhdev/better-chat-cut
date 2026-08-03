@@ -53,12 +53,13 @@ Better Chat Cut
 
 | Package / area | Purpose |
 |---|---|
-| `packages/global-asset-registry/` | Shared asset manifests, IDs, versions, lifecycle |
-| `packages/asset-resolver/` | Match requirements → reuse / variant / compose |
-| `packages/motion-components/` | Reusable SVG/React motion primitives |
-| `packages/scene-templates/` | Scene composition templates |
-| `packages/better-chat-cut-mcp/` | Semantic MCP adapter tools for Cursor |
-| `extensions/better-chat-cut/` | Thin integration glue into OpenChatCut core |
+| `packages/global-asset-registry/` | Shared asset manifests, IDs, versions, lifecycle, deterministic search |
+| `packages/asset-resolver/` | Match requirements → reuse / variant / compose (planned) |
+| `packages/motion-components/` | Reusable SVG/React motion primitives (planned) |
+| `packages/scene-templates/` | Scene composition templates (planned) |
+| `packages/better-chat-cut-mcp/` | Extra semantic MCP tools beyond thin adapters (planned) |
+| `extensions/better-chat-cut/` | Catalog + thin integration glue into OpenChatCut core |
+| `server/external-agent/better-chat-cut/` | MCP adapters such as read-only `asset_search` |
 
 These directories are documentation placeholders until real code exists. Do **not** register empty packages in a workspace build until they ship implementable sources.
 

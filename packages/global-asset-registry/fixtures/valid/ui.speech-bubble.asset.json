@@ -1,0 +1,1 @@
+﻿{"schemaVersion":"1.0.0","id":"ui.speech-bubble","version":"1.0.0","name":"Speech Bubble","description":"UI speech bubble for captions and dialogue.","kind":"ui","status":"published","categories":["ui","dialogue"],"tags":["speech","bubble"],"capabilities":["text"],"implementation":{"type":"svg","entry":"svg/speech-bubble.svg"},"license":{"spdx":"MIT"}}

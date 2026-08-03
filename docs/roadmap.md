@@ -12,12 +12,12 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 ## Milestone 1 — Asset Registry
 
-* Manifest schema.
+* Manifest schema. *(M1A done: `docs/asset-manifest-v1.md` + `packages/global-asset-registry`)*
 * Asset ID và version.
 * Category, tag và capability.
-* Preview.
-* Search cơ bản.
-* Asset lifecycle.
+* Preview. *(schema field only in M1A)*
+* Search cơ bản. *(M1A: deterministic metadata search + MCP `asset_search`)*
+* Asset lifecycle. *(statuses modeled; promotion commands are M1B)*
 
 ## Milestone 2 — Motion Component Catalog
 

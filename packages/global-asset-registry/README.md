@@ -1,13 +1,39 @@
 # @better-chat-cut/global-asset-registry
 
-Shared asset library: manifests, IDs, versions, categories, tags, capabilities, and lifecycle (`draft → staging → published`).
+Independent Global Asset Registry for Better Chat Cut.
 
-## Status
+## Public API
 
-Placeholder only. Do not add this package to a workspace build until real sources exist.
+```ts
+import {
+  validateAssetManifest,
+  loadAssetCatalog,
+  createGlobalAssetRegistry,
+  normalizeAssetSearchText,
+  resolveAssetCatalogRoots,
+} from './src/index.ts';
+```
 
-## Non-goals (now)
+## Usage
 
-- No schema implementation
-- No search index
-- No persistence backend
+```ts
+const registry = createGlobalAssetRegistry({
+  roots: resolveAssetCatalogRoots(),
+  strict: false,
+});
+await registry.refresh();
+const result = registry.search({ query: 'trai dat', capabilities: ['rotate'] });
+```
+
+## Verify
+
+```bash
+npm run verify:better-chat-cut-assets
+```
+
+## Notes
+
+- No MCP/React/Remotion dependencies.
+- Manifest files (`*.asset.json`) are the source of truth.
+- Search index is rebuilt on `refresh()` and is deterministic.
+- Schema docs: [docs/asset-manifest-v1.md](../../docs/asset-manifest-v1.md)

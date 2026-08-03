@@ -1,0 +1,1 @@
+﻿{"schemaVersion":"1.0.0","id":"background.city","version":"1.0.0","name":"City Background","description":"Flat city skyline background.","kind":"background","status":"published","categories":["urban","scenery"],"tags":["city","skyline"],"capabilities":["parallax"],"implementation":{"type":"image","entry":"images/city.png"},"license":{"spdx":"AGPL-3.0-or-later"}}

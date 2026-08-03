@@ -30,7 +30,9 @@ import { MOTION_SOURCE_TOOLS, runMotionSourceTool } from './better-chat-cut/moti
 import { SCENE_TOOLS, runSceneTool } from './better-chat-cut/scene-tools.ts';
 import { ASSET_RESOLVER_TOOLS, runAssetResolverTool } from './better-chat-cut/asset-resolver-tools.ts';
 import { SCENE_DRAFT_TOOLS, runSceneDraftTool } from './better-chat-cut/scene-draft-tools.ts';
+import { SCENE_BINDING_TOOLS, runSceneBindingTool } from './better-chat-cut/scene-binding-tools.ts';
 import { SceneDraftError } from '../../packages/scene-drafts/src/index.ts';
+import { SceneClipError } from '../../packages/project-scene-bindings/src/index.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 import { MotionSourceError } from '../../packages/motion-source-pipeline/src/index.ts';
 import { ScenePreviewError } from '../../packages/scene-graph/src/preview/scene-preview-errors.ts';
@@ -129,6 +131,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...SCENE_DRAFT_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...SCENE_BINDING_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -354,6 +362,20 @@ async function callControlTool(
     } catch (error) {
       if (error instanceof SceneDraftError) {
         throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
+      }
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (SCENE_BINDING_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runSceneBindingTool(name, args);
+    } catch (error) {
+      if (error instanceof SceneClipError || error instanceof SceneDraftError) {
+        const code = 'code' in error ? String(error.code) : 'SCENE_CLIP_ERROR';
+        throw new ExternalEditorCallError('rejected', `${code}: ${error.message}`);
       }
       throw new ExternalEditorCallError(
         'failed',

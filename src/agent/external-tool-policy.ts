@@ -7,6 +7,7 @@ const READ_ONLY_TOOL_NAMES = new Set([
   'read_script', 'view_timeline_frames', 'view_asset_frames', 'browse_library',
   'read_captions', 'read_project', 'read_transcript', 'find_transcript',
   'search_media', 'search_fonts',
+  'scene_clip_list', 'scene_clip_get', 'scene_clip_compare', 'scene_clip_validate',
 ]);
 
 const DRAFT_EDIT_TOOL_NAMES = new Set([
@@ -15,6 +16,7 @@ const DRAFT_EDIT_TOOL_NAMES = new Set([
   'set_aspect_ratio', 'manage_timelines', 'edit_track', 'apply_script',
   'edit_item', 'manage_effects', 'edit_captions', 'update_watermark',
   'manage_markers',
+  'scene_clip_bind', 'scene_clip_sync',
 ]);
 export function isExternalGlobalReadTool(name: string): boolean {
   return GLOBAL_READ_TOOL_NAMES[name] === true;

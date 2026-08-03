@@ -67,6 +67,8 @@ const VERB: Record<string, string> = {
   manage_effects: '特效',
   edit_item: '编辑片段',
   browse_library: '浏览资源库',
+  scene_clip_bind: 'Add Better Chat Cut scene clip',
+  scene_clip_sync: 'Sync Better Chat Cut scene clip',
 };
 
 function targetOf(args: Record<string, unknown>, actions: AnyAction[]): string {

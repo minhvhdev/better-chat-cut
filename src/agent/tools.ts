@@ -46,6 +46,7 @@ import { LAYOUT_TOOL_NAMES, LAYOUT_TOOL_SCHEMAS } from './tools/schemas/layout-t
 import { SILENCE_TOOL_NAMES, SILENCE_TOOL_SCHEMAS } from './tools/schemas/silence-tools';
 import { COLOR_SCOPE_TOOL_NAMES, COLOR_SCOPE_TOOL_SCHEMAS } from './tools/schemas/color-scope-tools';
 import { BEAT_TOOL_NAMES, BEAT_TOOL_SCHEMAS } from './tools/schemas/beat-tools';
+import { SCENE_CLIP_TOOL_NAMES, SCENE_CLIP_TOOL_SCHEMAS } from './tools/schemas/scene-clip-tools';
 import { withProgressTargets } from './tools/schemas/progress';
 
 // Canonical tool definitions (name / description / JSON input_schema). Each one
@@ -304,6 +305,7 @@ export const TOOL_SCHEMAS: AgentToolSchema[] = [
   ...COLOR_SCOPE_TOOL_SCHEMAS,
   // Beat detection: local DSP reports BPM, beats, and downbeats and can add timeline markers for beat cuts.
   ...BEAT_TOOL_SCHEMAS,
+  ...SCENE_CLIP_TOOL_SCHEMAS,
   // Optional advisory review of multi-scene plans; it has no runtime enforcement role.
   ...SCENE_QUALITY_TOOL_SCHEMAS,
   // ToolSearch — keyword discovery over this catalog
@@ -380,6 +382,7 @@ const EXECUTOR_GROUPS: ReadonlyArray<readonly [ReadonlySet<string>, ToolExecutor
   [SILENCE_TOOL_NAMES, async () => (await import('./tools/silence-tools')).execSilenceTool],
   [COLOR_SCOPE_TOOL_NAMES, async () => (await import('./tools/color-scope-tools')).execColorScopeTool],
   [BEAT_TOOL_NAMES, async () => (await import('./tools/beat-tools')).execBeatTool],
+  [SCENE_CLIP_TOOL_NAMES, async () => (await import('./tools/scene-clip-tools')).execSceneClipTool],
   [AUDIO_ASSET_TOOL_NAMES, async () => (await import('./tools/audio-asset-tools')).execAudioAssetTool],
   [SCENE_QUALITY_TOOL_NAMES, async () => (await import('./tools/scene-quality-tools')).execSceneQualityTool],
 ];

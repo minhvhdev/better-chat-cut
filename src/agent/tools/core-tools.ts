@@ -5,6 +5,7 @@ import type { AspectFit, MediaAsset } from '../../editor/types';
 import { prepareTemplate } from '../../template-host';
 import { generateAgentText } from '../client';
 import { designStyleHint } from '../systemPrompt';
+import { assertReservedPropsNotPatched } from '../../../packages/project-scene-bindings/src/schema/scene-clip-props-validator.ts';
 
 type Args = Record<string, unknown>;
 
@@ -121,8 +122,17 @@ function execItemMutation(name: string, args: Args, ctx: AgentContext): unknown 
   const item = findItem(ctx, args.itemId);
   if (!item) return { error: `no item ${args.itemId}` };
   if (name === 'update_item_props') {
-    ctx.commands.updateItemProps(item.id, (args.props ?? {}) as Args);
-    return { ok: true, itemId: item.id, updated: Object.keys((args.props ?? {}) as Args) };
+    const patch = (args.props ?? {}) as Args;
+    const blocked = assertReservedPropsNotPatched(patch);
+    if (blocked) {
+      return {
+        error: `${blocked.code}: ${blocked.message}`,
+        code: blocked.code,
+        recovery: blocked.recovery,
+      };
+    }
+    ctx.commands.updateItemProps(item.id, patch);
+    return { ok: true, itemId: item.id, updated: Object.keys(patch) };
   }
   if (name === 'move_item') {
     const kind = item.kind === 'audio' ? 'audio' : 'video';

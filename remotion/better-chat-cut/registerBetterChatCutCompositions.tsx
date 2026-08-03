@@ -11,8 +11,13 @@ import {
   BetterChatCutSceneContactSheet,
   type BetterChatCutSceneContactSheetProps,
 } from './BetterChatCutSceneContactSheet.tsx';
+import {
+  BetterChatCutAssemblyContactSheet,
+  type AssemblyContactSheetProps,
+} from './AssemblyContactSheet.tsx';
 import { getMotionComponent } from '../../packages/motion-components/src/runtime/registry.ts';
 import { ensureBetterChatCutMotionRuntime } from '../../packages/motion-components/src/bootstrap.ts';
+import type { TimelineState } from '../../src/editor/types.ts';
 
 ensureBetterChatCutMotionRuntime();
 
@@ -32,6 +37,22 @@ const DEFAULT_SCENE: BetterChatCutSceneStillProps['scene'] = {
   durationInFrames: 90,
   theme: { id: 'default', version: '1.0.0' },
   nodes: [],
+};
+
+const EMPTY_TIMELINE: TimelineState = {
+  fps: 30,
+  width: 1920,
+  height: 1080,
+  items: [],
+  selectedId: null,
+};
+
+const DEFAULT_ASSEMBLY_SHEET: AssemblyContactSheetProps = {
+  state: EMPTY_TIMELINE,
+  frames: [0],
+  columns: 4,
+  cellWidth: 384,
+  cellHeight: 216,
 };
 
 export function BetterChatCutCompositions() {
@@ -136,6 +157,28 @@ export function BetterChatCutCompositions() {
         fps={30}
         width={1280}
         height={720}
+      />
+      <Composition
+        id="BetterChatCutAssemblyContactSheet"
+        component={BetterChatCutAssemblyContactSheet}
+        defaultProps={DEFAULT_ASSEMBLY_SHEET}
+        calculateMetadata={({ props }) => {
+          const frames = props.frames?.length ? props.frames : [0];
+          const columns = Math.max(1, props.columns ?? 4);
+          const rows = Math.ceil(frames.length / columns);
+          const cellWidth = props.cellWidth ?? 384;
+          const cellHeight = props.cellHeight ?? 216;
+          return {
+            durationInFrames: 1,
+            fps: props.state?.fps ?? 30,
+            width: cellWidth * columns,
+            height: cellHeight * rows,
+          };
+        }}
+        durationInFrames={1}
+        fps={30}
+        width={1536}
+        height={216}
       />
     </>
   );

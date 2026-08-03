@@ -4,6 +4,8 @@ Portable `SceneClipBindingV1`, timeline item builders, frame mapping, sync plans
 
 Playback uses the embedded scene snapshot. Scene Draft Store is authoring-only.
 
+After M5A, assembled clips may also carry `__betterChatCutVideoPlan` metadata (see `packages/project-video-assembly`).
+
 Verify:
 
 ```bash

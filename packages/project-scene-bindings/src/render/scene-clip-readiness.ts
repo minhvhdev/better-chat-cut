@@ -1,8 +1,5 @@
-import {
-  computeSceneContentHash,
-  createSceneDependencyResolver,
-  createSceneValidator,
-} from '../../../scene-graph/src/index.ts';
+import { computeSceneContentHash, createSceneValidator } from '../../../scene-graph/src/schema/index.ts';
+import { createSceneDependencyResolver } from '../../../scene-graph/src/dependencies/index.ts';
 import type { SceneClipTimelineItemLike } from '../contracts/scene-clip-timeline-item.ts';
 import type { SceneClipReadinessResult } from '../contracts/scene-clip-status.ts';
 import { sceneClipDiagnostic } from '../contracts/scene-clip-errors.ts';

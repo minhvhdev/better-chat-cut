@@ -124,9 +124,11 @@ export function planSceneClipSync(
   }
 
   const props: Record<string, unknown> = {
+    ...item.props,
     [BETTER_CHAT_CUT_SCENE_PROPS_KEY]: next,
   };
   if (requestMeta) props[BETTER_CHAT_CUT_SCENE_REQUEST_META_KEY] = requestMeta;
+  // Preserve assembly metadata (__betterChatCutVideoPlan) when present — sync must not strip it.
 
   const resulting: SceneClipTimelineItemLike = {
     ...item,

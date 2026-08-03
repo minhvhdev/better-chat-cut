@@ -79,13 +79,14 @@ export function assertReservedPropsNotPatched(patch: Record<string, unknown>): S
   if (
     BETTER_CHAT_CUT_SCENE_PROPS_KEY in patch
     || BETTER_CHAT_CUT_SCENE_REQUEST_META_KEY in patch
+    || '__betterChatCutVideoPlan' in patch
   ) {
     return sceneClipDiagnostic(
       'error',
       'SCENE_CLIP_GENERIC_PROPS_EDIT_BLOCKED',
       'Reserved Better Chat Cut scene props cannot be edited via update_item_props',
       {
-        recovery: 'Use scene_draft_patch, scene_draft_get_binding_payload, then scene_clip_sync',
+        recovery: '__betterChatCutScene: use scene_draft_patch then scene_clip_sync. __betterChatCutVideoPlan: create a new VideoPlan or use a future video-plan sync milestone',
       },
     );
   }

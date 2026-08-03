@@ -16,7 +16,8 @@ Live under `server/external-agent/better-chat-cut/` and register on the existing
 - Motion source (M2B): `motion_source_get_contract`, `motion_asset_source_*`, `motion_asset_prepare_staging`
 - Scene (M3A): `scene_get_contract`, `scene_validate`, `scene_evaluate_frame`, `scene_render_preview`
 - Asset resolver (M3B): `asset_resolver_get_contract`, `asset_requirements_validate`, `asset_resolve_batch`, `asset_plan_validate`
+- Scene drafts (M4A): `scene_draft_get_contract`, `scene_draft_list`, `scene_draft_get`, `scene_draft_create`, `scene_draft_compose_asset_plan`, `scene_draft_patch`, `scene_draft_undo`, `scene_draft_redo`, `scene_draft_validate`, `scene_draft_render_preview`
 
 Remotion preview compositions live in `remotion/better-chat-cut/` (hooked from `remotion/Root.tsx`), including scene still/contact-sheet.
 
-See [docs/architecture.md](../../docs/architecture.md), [docs/scene-graph-v1.md](../../docs/scene-graph-v1.md), [docs/scene-preview.md](../../docs/scene-preview.md).
+See [docs/architecture.md](../../docs/architecture.md), [docs/scene-graph-v1.md](../../docs/scene-graph-v1.md), [docs/scene-preview.md](../../docs/scene-preview.md), [docs/scene-draft-v1.md](../../docs/scene-draft-v1.md).

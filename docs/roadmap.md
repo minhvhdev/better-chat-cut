@@ -46,7 +46,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M5C complete** when ProductionRenderPlanV1, persistent render operations, MP4/SRT/VTT delivery bundles, final export QA, artifact hashes/manifest, and `production_render_*` MCP tools pass verification. M5C does **not** add research/script/storyboard orchestration, music/SFX mastering, thumbnails, or publishing/YouTube upload.
 
-**Next:** M6A — End-to-end Explainer Production Orchestrator
+**M6A complete** when ExplainerProductionRequestV1, research/script/storyboard contracts, persistent ProductionRunV1, stage state machine, artifact lineage, review checkpoints, service adapters, restart/resume, and twelve `production_run_*` / orchestrator MCP tools pass verification. M6A does **not** add built-in web research, LLM script/storyboard generation, thumbnails, publishing, YouTube upload, or team collaboration.
+
+**Next:** M6B — Publishing Package, Thumbnail, Upload and Release Workflow
 
 ## Milestone 3 — Asset Resolver
 

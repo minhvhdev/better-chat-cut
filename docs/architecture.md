@@ -110,3 +110,5 @@ Avoid:
 All Better Chat Cut-specific work should live under `extensions/`, `packages/`, `docs/`, and `.cursor/` whenever possible so `git merge upstream/main` stays reviewable. See [upstream-sync.md](upstream-sync.md).
 
 Production delivery (M5C): `packages/production-render-plans`, `packages/production-render-bundles`, docs under `docs/production-*.md` / `docs/delivery-bundle-manifest-v1.md` / `docs/final-export-qa.md`. Downloads: `/api/better-chat-cut/deliveries/...`.
+
+Explainer production orchestrator (M6A): `packages/explainer-production-contracts`, `packages/explainer-production-runs`, docs under `docs/explainer-production-request-v1.md` / `docs/production-run-v1.md` / `docs/end-to-end-production-workflow.md`. Run root: `BETTER_CHAT_CUT_PRODUCTION_RUN_ROOT`. MCP: `explainer_orchestrator_get_contract`, `production_run_*`.

@@ -25,6 +25,7 @@ import {
 } from './broker.ts';
 import { createExternalProject, listExternalProjects } from './projects.ts';
 import { ASSET_SEARCH_TOOL, CATALOG_TOOLS, runCatalogTool } from './better-chat-cut/asset-search.ts';
+import { MOTION_TOOLS, runMotionTool } from './better-chat-cut/motion-tools.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 
 export const OPENCHATCUT_SKILL_BASELINE = '2026-08-01.1';
@@ -94,6 +95,12 @@ const CONTROL_TOOLS: Tool[] = [
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...MOTION_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
     annotations: tool.annotations,
   })),
 ];
@@ -262,6 +269,16 @@ async function callControlTool(
         throw new ExternalEditorCallError('rejected', error.message);
       }
       throw error;
+    }
+  }
+  if (MOTION_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runMotionTool(name, args);
+    } catch (error) {
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
     }
   }
   return undefined;

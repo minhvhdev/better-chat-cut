@@ -137,8 +137,17 @@ docs/*
 !docs/release-review-and-scheduling.md
 !docs/publishing-security.md
 !docs/publishing-recovery.md
+!docs/production-workspace.md
+!docs/production-workspace-review-surfaces.md
+!docs/production-workspace-health.md
+!docs/better-chat-cut-data-migrations.md
+!docs/diagnostic-bundles.md
+!docs/production-workspace-recovery.md
+!docs/production-workspace-accessibility.md
+!docs/production-workspace-desktop.md
 !/video-plan-v1.md
 !/production-render-plan-v1.md
+!/production-workspace.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

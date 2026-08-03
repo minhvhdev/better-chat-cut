@@ -39,10 +39,15 @@ import {
   NARRATION_CONTROL_TOOLS,
   runNarrationControlTool,
 } from './better-chat-cut/narration-tools.ts';
+import {
+  PRODUCTION_RENDER_CONTROL_TOOLS,
+  runProductionRenderControlTool,
+} from './better-chat-cut/production-render-tools.ts';
 import { SceneDraftError } from '../../packages/scene-drafts/src/index.ts';
 import { SceneClipError } from '../../packages/project-scene-bindings/src/index.ts';
 import { VideoPlanError } from '../../packages/video-plans/src/contracts/video-plan-errors.ts';
 import { NarrationError } from '../../packages/narration-plans/src/contracts/narration-errors.ts';
+import { ProductionRenderError } from '../../packages/production-render-plans/src/contracts/production-render-errors.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 import { MotionSourceError } from '../../packages/motion-source-pipeline/src/index.ts';
 import { ScenePreviewError } from '../../packages/scene-graph/src/preview/scene-preview-errors.ts';
@@ -159,6 +164,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...NARRATION_CONTROL_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...PRODUCTION_RENDER_CONTROL_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -423,6 +434,21 @@ async function callControlTool(
       return await runNarrationControlTool(name, args);
     } catch (error) {
       if (error instanceof NarrationError) {
+        throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
+      }
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (PRODUCTION_RENDER_CONTROL_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      const projectId = session.binding?.projectId
+        ?? (typeof args.projectId === 'string' ? args.projectId : null);
+      return await runProductionRenderControlTool(name, args, { projectId });
+    } catch (error) {
+      if (error instanceof ProductionRenderError) {
         throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
       }
       throw new ExternalEditorCallError(

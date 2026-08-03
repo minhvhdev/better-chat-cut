@@ -8,6 +8,7 @@ import { projectStorePlugin } from "./project-store.ts";
 import { extensionStorePlugin } from "./extension-store.ts";
 import { exportPlugin } from "./export.ts";
 import { exportQaPlugin } from "./export-qa.ts";
+import { betterChatCutDeliveriesPlugin } from "./better-chat-cut-deliveries.ts";
 import { exportDestinationPlugin } from "./export-destination.ts";
 import { exportStagePlugin } from "./export-stage.ts";
 import { uploadPlugin } from "./upload.ts";
@@ -55,6 +56,7 @@ export function serverPlugins(): Plugin[] {
     exportPlugin(),
     exportDestinationPlugin(),
     exportQaPlugin(),
+    betterChatCutDeliveriesPlugin(),
     uploadMultipartPlugin(),
     uploadPlugin(),
     mobileUploadPlugin(),

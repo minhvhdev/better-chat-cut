@@ -44,7 +44,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M5B complete** when NarrationPlanV1, temporary TTS timing, voice-over alignment, caption tracks, SRT/WebVTT export, and narration edit-session MCP tools pass verification. M5B does **not** add research/script/storyboard AI, production MP4 bundles, music/SFX, or publishing.
 
-**Next:** M5C — Production Render Bundle, MP4/SRT/VTT Delivery and Final Export QA
+**M5C complete** when ProductionRenderPlanV1, persistent render operations, MP4/SRT/VTT delivery bundles, final export QA, artifact hashes/manifest, and `production_render_*` MCP tools pass verification. M5C does **not** add research/script/storyboard orchestration, music/SFX mastering, thumbnails, or publishing/YouTube upload.
+
+**Next:** M6A — End-to-end Explainer Production Orchestrator
 
 ## Milestone 3 — Asset Resolver
 
@@ -131,6 +133,20 @@ Resolver does **not** auto-create assets. AssetPlan is **not** stored in project
 
 **Next proposed:** M5C — Production Render Bundle, MP4/SRT/VTT Delivery and Final Export QA
 
+## Milestone 5C — Production Render Bundle & Final Export QA (done when criteria pass)
+
+* ProductionRenderRequestV1 / immutable ProductionRenderPlanV1 + fingerprints
+* Persistent render operations with idempotency / resume / cancel
+* MP4 via existing TimelineComposition/Remotion export path
+* SRT/VTT sidecars, delivery manifest, artifact SHA-256
+* Final media/subtitle QA + quality gate + contact sheet
+* MCP: `production_render_*`
+
+**M5C provides:** production delivery bundles from a completed visual+narration project.  
+**Not yet:** topic→delivery orchestration, research/script AI, music/SFX mastering, thumbnails, publishing.
+
+**Next proposed:** M6A — End-to-end Explainer Production Orchestrator
+
 ## Milestone 5 — Video Pipeline
 
 * Research.
@@ -146,4 +162,4 @@ Resolver does **not** auto-create assets. AssetPlan is **not** stored in project
 
 ## Status
 
-M0, M1A, M1B, M2A, M2B, M3A, M3B, M4A, M4B, M5A, and M5B are implemented on `main`. Later milestones require separate design approval before implementation. Better Chat Cut is **not** a complete product yet — research/script orchestration, production export bundles, audio mixing/mastering, and full publish pipeline remain.
+M0, M1A, M1B, M2A, M2B, M3A, M3B, M4A, M4B, M5A, M5B, and M5C are implemented on `main`. Later milestones require separate design approval before implementation. Better Chat Cut is **not** a complete product yet — research/script orchestration, audio mixing/mastering, and full publish pipeline remain.

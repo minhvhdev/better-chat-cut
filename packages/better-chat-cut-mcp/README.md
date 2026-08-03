@@ -14,6 +14,8 @@ Package folder remains a future home for thicker semantic facades. Through **M3B
 - `server/external-agent/better-chat-cut/scene-draft-tools.ts` (`scene_draft_*` create/compose/patch/undo/redo/preview)
 - `server/external-agent/better-chat-cut/scene-binding-tools.ts` / scene clip tools via editor registry
 - `server/external-agent/better-chat-cut/video-plan-tools.ts` (`video_plan_get_contract`, `video_plan_validate`; project tools via edit-session registry)
+- `server/external-agent/better-chat-cut/narration-tools.ts` (`narration_*`)
+- `server/external-agent/better-chat-cut/production-render-tools.ts` (`production_render_*` prepare/submit/status/cancel/list/manifest/validate)
 
 Do not stand up a second MCP HTTP server.
 

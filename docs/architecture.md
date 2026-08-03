@@ -108,3 +108,5 @@ Avoid:
 ## Sync posture
 
 All Better Chat Cut-specific work should live under `extensions/`, `packages/`, `docs/`, and `.cursor/` whenever possible so `git merge upstream/main` stays reviewable. See [upstream-sync.md](upstream-sync.md).
+
+Production delivery (M5C): `packages/production-render-plans`, `packages/production-render-bundles`, docs under `docs/production-*.md` / `docs/delivery-bundle-manifest-v1.md` / `docs/final-export-qa.md`. Downloads: `/api/better-chat-cut/deliveries/...`.

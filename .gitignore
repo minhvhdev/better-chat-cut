@@ -121,6 +121,13 @@ docs/*
 !docs/delivery-bundle-manifest-v1.md
 !docs/final-export-qa.md
 !docs/production-delivery-workflow.md
+!docs/explainer-production-request-v1.md
+!docs/research-script-storyboard-contracts.md
+!docs/production-run-v1.md
+!docs/production-stage-state-machine.md
+!docs/production-artifact-lineage.md
+!docs/end-to-end-production-workflow.md
+!docs/production-run-recovery.md
 !/video-plan-v1.md
 !/production-render-plan-v1.md
 

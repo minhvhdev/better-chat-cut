@@ -28,6 +28,7 @@ import { ASSET_SEARCH_TOOL, CATALOG_TOOLS, runCatalogTool } from './better-chat-
 import { MOTION_TOOLS, runMotionTool } from './better-chat-cut/motion-tools.ts';
 import { MOTION_SOURCE_TOOLS, runMotionSourceTool } from './better-chat-cut/motion-source-tools.ts';
 import { SCENE_TOOLS, runSceneTool } from './better-chat-cut/scene-tools.ts';
+import { ASSET_RESOLVER_TOOLS, runAssetResolverTool } from './better-chat-cut/asset-resolver-tools.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 import { MotionSourceError } from '../../packages/motion-source-pipeline/src/index.ts';
 import { ScenePreviewError } from '../../packages/scene-graph/src/preview/scene-preview-errors.ts';
@@ -114,6 +115,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...SCENE_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...ASSET_RESOLVER_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -317,6 +324,16 @@ async function callControlTool(
       if (error instanceof ScenePreviewError) {
         throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
       }
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (ASSET_RESOLVER_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runAssetResolverTool(name, args);
+    } catch (error) {
       throw new ExternalEditorCallError(
         'failed',
         error instanceof Error ? error.message : String(error),

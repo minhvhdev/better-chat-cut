@@ -116,7 +116,13 @@ docs/*
 !docs/voiceover-alignment.md
 !docs/narration-timeline-captions.md
 !docs/narration-subtitle-export.md
+!docs/production-render-plan-v1.md
+!docs/production-render-operations.md
+!docs/delivery-bundle-manifest-v1.md
+!docs/final-export-qa.md
+!docs/production-delivery-workflow.md
 !/video-plan-v1.md
+!/production-render-plan-v1.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

@@ -1,0 +1,797 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "video-plan.example-three-scene",
+  "name": "Example three-scene plan",
+  "output": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "fit": "contain"
+  },
+  "sceneCanvasPolicy": "require-match",
+  "placement": {
+    "mode": "append",
+    "collisionPolicy": "require-clear"
+  },
+  "markers": {
+    "mode": "boundary",
+    "defaultColor": "blue",
+    "notePrefix": "BCC Scene"
+  },
+  "defaults": {
+    "gapAfterFrames": 0,
+    "transitionToNext": {
+      "mode": "cut"
+    }
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "name": "Intro",
+      "binding": {
+        "schemaVersion": "1.0.0",
+        "bindingMode": "embedded-snapshot",
+        "sourceDraft": {
+          "draftId": "draft.video-plan",
+          "draftRevision": 1,
+          "historyEntryId": "hist_vp",
+          "sceneContentHash": "05eafcbf474d68e62723e81ad96266cac2ad457343e261ae6f819cab61bdfffe"
+        },
+        "scene": {
+          "schemaVersion": "1.0.0",
+          "id": "scene.intro",
+          "name": "Basic explainer",
+          "description": "Background, circle, arrow, and label with fade/pop/slide.",
+          "canvas": {
+            "width": 1280,
+            "height": 720,
+            "backgroundColor": "#0D1021"
+          },
+          "fps": 30,
+          "durationInFrames": 90,
+          "theme": {
+            "id": "default",
+            "version": "1.0.0"
+          },
+          "safeArea": {
+            "top": 40,
+            "right": 60,
+            "bottom": 40,
+            "left": 60
+          },
+          "nodes": [
+            {
+              "id": "background",
+              "order": 0,
+              "enabled": true,
+              "startFrame": 0,
+              "endFrame": 90,
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 720
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [],
+              "metadata": {
+                "role": "background"
+              },
+              "type": "asset",
+              "asset": {
+                "id": "background.solid",
+                "version": "1.0.0",
+                "props": {
+                  "color": "#0D1021"
+                }
+              },
+              "fit": "stretch"
+            },
+            {
+              "id": "circle",
+              "order": 1,
+              "enabled": true,
+              "startFrame": 0,
+              "endFrame": 90,
+              "layout": {
+                "x": 480,
+                "y": 220,
+                "width": 320,
+                "height": 320
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "circle-pop",
+                  "animation": {
+                    "id": "animation.pop-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 24
+                }
+              ],
+              "type": "asset",
+              "asset": {
+                "id": "primitive.circle",
+                "version": "1.0.0",
+                "props": {
+                  "radius": 80
+                }
+              },
+              "fit": "contain"
+            },
+            {
+              "id": "arrow",
+              "order": 2,
+              "enabled": true,
+              "startFrame": 10,
+              "endFrame": 90,
+              "layout": {
+                "x": 820,
+                "y": 340,
+                "width": 280,
+                "height": 80
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "arrow-slide",
+                  "animation": {
+                    "id": "animation.slide-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 20
+                }
+              ],
+              "type": "asset",
+              "asset": {
+                "id": "primitive.arrow",
+                "version": "1.0.0",
+                "props": {
+                  "length": 240
+                }
+              },
+              "fit": "contain"
+            },
+            {
+              "id": "label",
+              "order": 3,
+              "enabled": true,
+              "startFrame": 15,
+              "endFrame": 90,
+              "layout": {
+                "x": 100,
+                "y": 80,
+                "width": 600,
+                "height": 80
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "label-fade",
+                  "animation": {
+                    "id": "animation.fade-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 20
+                }
+              ],
+              "metadata": {
+                "role": "label"
+              },
+              "type": "asset",
+              "asset": {
+                "id": "ui.label",
+                "version": "1.0.0",
+                "props": {
+                  "text": "Hawking radiation",
+                  "fontSize": 42
+                }
+              },
+              "fit": "contain"
+            }
+          ]
+        },
+        "sceneContentHash": "05eafcbf474d68e62723e81ad96266cac2ad457343e261ae6f819cab61bdfffe",
+        "dependencyFingerprint": "dep-fp-vp",
+        "catalogRevision": "catalog-vp",
+        "motionRuntimeRevision": "motion-vp",
+        "sceneRuntimeRevision": "scene-runtime-f87aa1db",
+        "dependencies": {
+          "theme": {
+            "id": "default",
+            "version": "1.0.0"
+          },
+          "assets": [
+            {
+              "id": "background.solid",
+              "version": "1.0.0",
+              "contentHash": "b1",
+              "status": "published"
+            },
+            {
+              "id": "primitive.arrow",
+              "version": "1.0.0",
+              "contentHash": "a1",
+              "status": "published"
+            },
+            {
+              "id": "primitive.circle",
+              "version": "1.0.0",
+              "contentHash": "c1",
+              "status": "published"
+            },
+            {
+              "id": "ui.label",
+              "version": "1.0.0",
+              "contentHash": "l1",
+              "status": "published"
+            }
+          ],
+          "animations": [
+            {
+              "id": "animation.fade-in",
+              "version": "1.0.0"
+            },
+            {
+              "id": "animation.pop-in",
+              "version": "1.0.0"
+            },
+            {
+              "id": "animation.slide-in",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "bindingPayloadHash": "70ac465845ef205156c04f0cee0f846db8486d1b30728c719a78ef6b5e10c2f0"
+      },
+      "transitionToNext": {
+        "mode": "timeline-transition",
+        "type": "cross-dissolve",
+        "durationInFrames": 12
+      }
+    },
+    {
+      "id": "body",
+      "name": "Body",
+      "binding": {
+        "schemaVersion": "1.0.0",
+        "bindingMode": "embedded-snapshot",
+        "sourceDraft": {
+          "draftId": "draft.video-plan",
+          "draftRevision": 1,
+          "historyEntryId": "hist_vp",
+          "sceneContentHash": "33053a597012a7a8631ae608c4871ab608d01e364bb47b0c802b3885b82a145c"
+        },
+        "scene": {
+          "schemaVersion": "1.0.0",
+          "id": "scene.body",
+          "name": "Basic explainer",
+          "description": "Background, circle, arrow, and label with fade/pop/slide.",
+          "canvas": {
+            "width": 1280,
+            "height": 720,
+            "backgroundColor": "#0D1021"
+          },
+          "fps": 30,
+          "durationInFrames": 90,
+          "theme": {
+            "id": "default",
+            "version": "1.0.0"
+          },
+          "safeArea": {
+            "top": 40,
+            "right": 60,
+            "bottom": 40,
+            "left": 60
+          },
+          "nodes": [
+            {
+              "id": "background",
+              "order": 0,
+              "enabled": true,
+              "startFrame": 0,
+              "endFrame": 90,
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 720
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [],
+              "metadata": {
+                "role": "background"
+              },
+              "type": "asset",
+              "asset": {
+                "id": "background.solid",
+                "version": "1.0.0",
+                "props": {
+                  "color": "#0D1021"
+                }
+              },
+              "fit": "stretch"
+            },
+            {
+              "id": "circle",
+              "order": 1,
+              "enabled": true,
+              "startFrame": 0,
+              "endFrame": 90,
+              "layout": {
+                "x": 480,
+                "y": 220,
+                "width": 320,
+                "height": 320
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "circle-pop",
+                  "animation": {
+                    "id": "animation.pop-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 24
+                }
+              ],
+              "type": "asset",
+              "asset": {
+                "id": "primitive.circle",
+                "version": "1.0.0",
+                "props": {
+                  "radius": 80
+                }
+              },
+              "fit": "contain"
+            },
+            {
+              "id": "arrow",
+              "order": 2,
+              "enabled": true,
+              "startFrame": 10,
+              "endFrame": 90,
+              "layout": {
+                "x": 820,
+                "y": 340,
+                "width": 280,
+                "height": 80
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "arrow-slide",
+                  "animation": {
+                    "id": "animation.slide-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 20
+                }
+              ],
+              "type": "asset",
+              "asset": {
+                "id": "primitive.arrow",
+                "version": "1.0.0",
+                "props": {
+                  "length": 240
+                }
+              },
+              "fit": "contain"
+            },
+            {
+              "id": "label",
+              "order": 3,
+              "enabled": true,
+              "startFrame": 15,
+              "endFrame": 90,
+              "layout": {
+                "x": 100,
+                "y": 80,
+                "width": 600,
+                "height": 80
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "label-fade",
+                  "animation": {
+                    "id": "animation.fade-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 20
+                }
+              ],
+              "metadata": {
+                "role": "label"
+              },
+              "type": "asset",
+              "asset": {
+                "id": "ui.label",
+                "version": "1.0.0",
+                "props": {
+                  "text": "Hawking radiation",
+                  "fontSize": 42
+                }
+              },
+              "fit": "contain"
+            }
+          ]
+        },
+        "sceneContentHash": "33053a597012a7a8631ae608c4871ab608d01e364bb47b0c802b3885b82a145c",
+        "dependencyFingerprint": "dep-fp-vp",
+        "catalogRevision": "catalog-vp",
+        "motionRuntimeRevision": "motion-vp",
+        "sceneRuntimeRevision": "scene-runtime-f87aa1db",
+        "dependencies": {
+          "theme": {
+            "id": "default",
+            "version": "1.0.0"
+          },
+          "assets": [
+            {
+              "id": "background.solid",
+              "version": "1.0.0",
+              "contentHash": "b1",
+              "status": "published"
+            },
+            {
+              "id": "primitive.arrow",
+              "version": "1.0.0",
+              "contentHash": "a1",
+              "status": "published"
+            },
+            {
+              "id": "primitive.circle",
+              "version": "1.0.0",
+              "contentHash": "c1",
+              "status": "published"
+            },
+            {
+              "id": "ui.label",
+              "version": "1.0.0",
+              "contentHash": "l1",
+              "status": "published"
+            }
+          ],
+          "animations": [
+            {
+              "id": "animation.fade-in",
+              "version": "1.0.0"
+            },
+            {
+              "id": "animation.pop-in",
+              "version": "1.0.0"
+            },
+            {
+              "id": "animation.slide-in",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "bindingPayloadHash": "0ebe3ddf730cba71bc54fb52774e7a407526e12178191cf7eb4f870314ae01a2"
+      },
+      "duration": {
+        "mode": "timeline-frames",
+        "timelineFrames": 60
+      },
+      "transitionToNext": {
+        "mode": "cut"
+      }
+    },
+    {
+      "id": "outro",
+      "name": "Outro",
+      "binding": {
+        "schemaVersion": "1.0.0",
+        "bindingMode": "embedded-snapshot",
+        "sourceDraft": {
+          "draftId": "draft.video-plan",
+          "draftRevision": 1,
+          "historyEntryId": "hist_vp",
+          "sceneContentHash": "58f7cfe5cce2ff78196e5e4aeb832c5cc50ba6f3e7b7c882360cf9d89f25023c"
+        },
+        "scene": {
+          "schemaVersion": "1.0.0",
+          "id": "scene.outro",
+          "name": "Basic explainer",
+          "description": "Background, circle, arrow, and label with fade/pop/slide.",
+          "canvas": {
+            "width": 1280,
+            "height": 720,
+            "backgroundColor": "#0D1021"
+          },
+          "fps": 30,
+          "durationInFrames": 90,
+          "theme": {
+            "id": "default",
+            "version": "1.0.0"
+          },
+          "safeArea": {
+            "top": 40,
+            "right": 60,
+            "bottom": 40,
+            "left": 60
+          },
+          "nodes": [
+            {
+              "id": "background",
+              "order": 0,
+              "enabled": true,
+              "startFrame": 0,
+              "endFrame": 90,
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 1280,
+                "height": 720
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [],
+              "metadata": {
+                "role": "background"
+              },
+              "type": "asset",
+              "asset": {
+                "id": "background.solid",
+                "version": "1.0.0",
+                "props": {
+                  "color": "#0D1021"
+                }
+              },
+              "fit": "stretch"
+            },
+            {
+              "id": "circle",
+              "order": 1,
+              "enabled": true,
+              "startFrame": 0,
+              "endFrame": 90,
+              "layout": {
+                "x": 480,
+                "y": 220,
+                "width": 320,
+                "height": 320
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "circle-pop",
+                  "animation": {
+                    "id": "animation.pop-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 24
+                }
+              ],
+              "type": "asset",
+              "asset": {
+                "id": "primitive.circle",
+                "version": "1.0.0",
+                "props": {
+                  "radius": 80
+                }
+              },
+              "fit": "contain"
+            },
+            {
+              "id": "arrow",
+              "order": 2,
+              "enabled": true,
+              "startFrame": 10,
+              "endFrame": 90,
+              "layout": {
+                "x": 820,
+                "y": 340,
+                "width": 280,
+                "height": 80
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "arrow-slide",
+                  "animation": {
+                    "id": "animation.slide-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 20
+                }
+              ],
+              "type": "asset",
+              "asset": {
+                "id": "primitive.arrow",
+                "version": "1.0.0",
+                "props": {
+                  "length": 240
+                }
+              },
+              "fit": "contain"
+            },
+            {
+              "id": "label",
+              "order": 3,
+              "enabled": true,
+              "startFrame": 15,
+              "endFrame": 90,
+              "layout": {
+                "x": 100,
+                "y": 80,
+                "width": 600,
+                "height": 80
+              },
+              "transform": {
+                "anchorX": 0.5,
+                "anchorY": 0.5,
+                "scaleX": 1,
+                "scaleY": 1,
+                "rotation": 0,
+                "opacity": 1
+              },
+              "animations": [
+                {
+                  "id": "label-fade",
+                  "animation": {
+                    "id": "animation.fade-in",
+                    "version": "1.0.0"
+                  },
+                  "startFrame": 0,
+                  "durationInFrames": 20
+                }
+              ],
+              "metadata": {
+                "role": "label"
+              },
+              "type": "asset",
+              "asset": {
+                "id": "ui.label",
+                "version": "1.0.0",
+                "props": {
+                  "text": "Hawking radiation",
+                  "fontSize": 42
+                }
+              },
+              "fit": "contain"
+            }
+          ]
+        },
+        "sceneContentHash": "58f7cfe5cce2ff78196e5e4aeb832c5cc50ba6f3e7b7c882360cf9d89f25023c",
+        "dependencyFingerprint": "dep-fp-vp",
+        "catalogRevision": "catalog-vp",
+        "motionRuntimeRevision": "motion-vp",
+        "sceneRuntimeRevision": "scene-runtime-f87aa1db",
+        "dependencies": {
+          "theme": {
+            "id": "default",
+            "version": "1.0.0"
+          },
+          "assets": [
+            {
+              "id": "background.solid",
+              "version": "1.0.0",
+              "contentHash": "b1",
+              "status": "published"
+            },
+            {
+              "id": "primitive.arrow",
+              "version": "1.0.0",
+              "contentHash": "a1",
+              "status": "published"
+            },
+            {
+              "id": "primitive.circle",
+              "version": "1.0.0",
+              "contentHash": "c1",
+              "status": "published"
+            },
+            {
+              "id": "ui.label",
+              "version": "1.0.0",
+              "contentHash": "l1",
+              "status": "published"
+            }
+          ],
+          "animations": [
+            {
+              "id": "animation.fade-in",
+              "version": "1.0.0"
+            },
+            {
+              "id": "animation.pop-in",
+              "version": "1.0.0"
+            },
+            {
+              "id": "animation.slide-in",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        "bindingPayloadHash": "29a0a9dde7c19607cce959ae47944b00c3c1f3b07c18d3cc99a87eaff1c6d5fb"
+      }
+    }
+  ]
+}

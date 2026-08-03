@@ -1538,7 +1538,7 @@ export function createProductionOrchestrator(options?: {
       limitations: [
         'No built-in Internet research',
         'No built-in LLM script/storyboard generation',
-        'No publishing/upload (M6B)',
+        'Publishing/upload is M6B (`publishing_*` tools), separate from production runs',
         'Caller authors research/script/storyboard artifacts',
         'Project mutations require edit sessions',
       ],

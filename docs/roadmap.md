@@ -48,7 +48,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M6A complete** when ExplainerProductionRequestV1, research/script/storyboard contracts, persistent ProductionRunV1, stage state machine, artifact lineage, review checkpoints, service adapters, restart/resume, and twelve `production_run_*` / orchestrator MCP tools pass verification. M6A does **not** add built-in web research, LLM script/storyboard generation, thumbnails, publishing, YouTube upload, or team collaboration.
 
-**Next:** M6B — Publishing Package, Thumbnail, Upload and Release Workflow
+**M6B complete** when PublishingRequestV1 / metadata / compliance / ThumbnailPlan / immutable PublishingPackageV1, persistent PublishingRunV1, opaque connection IDs, YouTube + fake adapters, private resumable upload, remote verification, mandatory release review, ReleaseManifestV1, restart/resume/reconciliation/cancel, and fourteen `publishing_*` MCP tools pass verification. M6B does **not** add multi-platform publish, AI metadata/SEO/thumbnail generation, team permissioning, OAuth setup UI, production workspace UI, or packaged desktop hardening.
+
+**Next:** M7A — Production Workspace UI, Human Review Surfaces and Operational Hardening
 
 ## Milestone 3 — Asset Resolver
 

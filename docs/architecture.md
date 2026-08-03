@@ -112,3 +112,5 @@ All Better Chat Cut-specific work should live under `extensions/`, `packages/`, 
 Production delivery (M5C): `packages/production-render-plans`, `packages/production-render-bundles`, docs under `docs/production-*.md` / `docs/delivery-bundle-manifest-v1.md` / `docs/final-export-qa.md`. Downloads: `/api/better-chat-cut/deliveries/...`.
 
 Explainer production orchestrator (M6A): `packages/explainer-production-contracts`, `packages/explainer-production-runs`, docs under `docs/explainer-production-request-v1.md` / `docs/production-run-v1.md` / `docs/end-to-end-production-workflow.md`. Run root: `BETTER_CHAT_CUT_PRODUCTION_RUN_ROOT`. MCP: `explainer_orchestrator_get_contract`, `production_run_*`.
+
+Publishing package + upload/release (M6B): `packages/publishing-contracts`, `packages/publishing-assets`, `packages/publishing-operations`, docs under `docs/publishing-*.md` / `docs/youtube-upload-workflow.md` / `docs/release-review-and-scheduling.md`. Publishing root: `BETTER_CHAT_CUT_PUBLISHING_ROOT`. MCP: fourteen `publishing_*` tools. Platform adapter interface with YouTube + fake adapters; no tokens in artifacts/MCP.

@@ -128,6 +128,15 @@ docs/*
 !docs/production-artifact-lineage.md
 !docs/end-to-end-production-workflow.md
 !docs/production-run-recovery.md
+!docs/publishing-request-v1.md
+!docs/publishing-metadata-and-compliance.md
+!docs/thumbnail-plan-v1.md
+!docs/publishing-package-v1.md
+!docs/publishing-run-v1.md
+!docs/youtube-upload-workflow.md
+!docs/release-review-and-scheduling.md
+!docs/publishing-security.md
+!docs/publishing-recovery.md
 !/video-plan-v1.md
 !/production-render-plan-v1.md
 

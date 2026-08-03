@@ -8,3 +8,5 @@
 6. Download artifacts via same-origin URLs.
 
 Does not mutate the project and does not publish/upload.
+
+To publish a completed delivery, use M6B `publishing_run_*` (opaque YouTube connection, private upload, release review). See publishing-run-v1.md.

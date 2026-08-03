@@ -10,3 +10,5 @@
 8. Timeline review → production preflight → render → delivery validation → delivery review → completion.
 
 MCP tools: `explainer_orchestrator_get_contract`, `production_run_*` (12 tools total).
+
+Publishing (M6B) continues from a completed delivery via separate `publishing_*` tools and a publishing run root (`BETTER_CHAT_CUT_PUBLISHING_ROOT`) — see publishing-request-v1.md and youtube-upload-workflow.md.

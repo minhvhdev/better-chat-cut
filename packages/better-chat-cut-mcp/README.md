@@ -17,6 +17,7 @@ Package folder remains a future home for thicker semantic facades. Through **M3B
 - `server/external-agent/better-chat-cut/narration-tools.ts` (`narration_*`)
 - `server/external-agent/better-chat-cut/production-render-tools.ts` (`production_render_*` prepare/submit/status/cancel/list/manifest/validate)
 - `server/external-agent/better-chat-cut/production-orchestrator-tools.ts` (`explainer_orchestrator_get_contract`, `production_run_*` create/list/get/validate/put/plan/execute/review/resume/cancel/delivery)
+- `server/external-agent/better-chat-cut/publishing-tools.ts` (`publishing_get_contract`, `publishing_connection_inspect`, `publishing_package_validate`, `publishing_run_*` create/list/get/validate/put/plan/execute/review/resume/cancel/release)
 
 Do not stand up a second MCP HTTP server.
 

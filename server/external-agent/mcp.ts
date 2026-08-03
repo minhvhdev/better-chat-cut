@@ -47,6 +47,10 @@ import {
   PRODUCTION_ORCHESTRATOR_CONTROL_TOOLS,
   runProductionOrchestratorControlTool,
 } from './better-chat-cut/production-orchestrator-tools.ts';
+import {
+  PUBLISHING_CONTROL_TOOLS,
+  runPublishingControlTool,
+} from './better-chat-cut/publishing-tools.ts';
 import { SceneDraftError } from '../../packages/scene-drafts/src/index.ts';
 import { SceneClipError } from '../../packages/project-scene-bindings/src/index.ts';
 import { VideoPlanError } from '../../packages/video-plans/src/contracts/video-plan-errors.ts';
@@ -54,6 +58,8 @@ import { NarrationError } from '../../packages/narration-plans/src/contracts/nar
 import { ProductionRenderError } from '../../packages/production-render-plans/src/contracts/production-render-errors.ts';
 import { ProductionRunError } from '../../packages/explainer-production-runs/src/contracts/production-run-errors.ts';
 import { ProductionContractError } from '../../packages/explainer-production-contracts/src/contracts/production-errors.ts';
+import { PublishingOperationError } from '../../packages/publishing-operations/src/contracts/publishing-operation-errors.ts';
+import { PublishingContractError } from '../../packages/publishing-contracts/src/contracts/publishing-errors.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 import { MotionSourceError } from '../../packages/motion-source-pipeline/src/index.ts';
 import { ScenePreviewError } from '../../packages/scene-graph/src/preview/scene-preview-errors.ts';
@@ -182,6 +188,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...PRODUCTION_ORCHESTRATOR_CONTROL_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...PUBLISHING_CONTROL_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -474,6 +486,19 @@ async function callControlTool(
       return await runProductionOrchestratorControlTool(name, args);
     } catch (error) {
       if (error instanceof ProductionRunError || error instanceof ProductionContractError) {
+        throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
+      }
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (PUBLISHING_CONTROL_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runPublishingControlTool(name, args);
+    } catch (error) {
+      if (error instanceof PublishingOperationError || error instanceof PublishingContractError) {
         throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
       }
       throw new ExternalEditorCallError(

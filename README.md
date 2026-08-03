@@ -1,8 +1,60 @@
 <p align="center">
-  <img src="public/openchatcut-icon.png" width="96" alt="OpenChatCut" />
+  <img src="public/openchatcut-icon.png" width="96" alt="Better Chat Cut" />
 </p>
 
-<h1 align="center">OpenChatCut</h1>
+<h1 align="center">Better Chat Cut</h1>
+
+<p align="center">
+  <strong>Personal long-term fork of <a href="https://github.com/0xsline/OpenChatCut">OpenChatCut</a></strong>
+</p>
+
+<p align="center">
+  Agent-driven video production with a shared asset library, semantic MCP tools, and isolated extensions on top of the OpenChatCut editor core.
+</p>
+
+---
+
+## Fork notice
+
+**Better Chat Cut** is a personal fork of [OpenChatCut](https://github.com/0xsline/OpenChatCut). Upstream continues to own the editor, timeline, project model, preview, Remotion rendering, and existing MCP/agent integration. This fork keeps the **AGPL-3.0-or-later** license and OpenChatCut attribution intact.
+
+| | |
+|---|---|
+| **Upstream** | https://github.com/0xsline/OpenChatCut |
+| **This fork** | https://github.com/minhvhdev/better-chat-cut |
+| **License** | AGPL-3.0-or-later (unchanged) |
+| **Development branch** | `main` only |
+
+### Long-term goals
+
+- Cursor drives the app through MCP.
+- Agents research topics, write scripts, and split scenes.
+- Agents prefer searching and reusing catalog assets before creating new ones.
+- Shared Global Asset Registry across projects and topics.
+- Isolated Better Chat Cut extensions so OpenChatCut upstream stays easy to merge.
+
+### Sync upstream
+
+On branch `main` with a clean working tree, run the project Cursor skill:
+
+```text
+/sync-openchatcut
+```
+
+See [docs/upstream-sync.md](docs/upstream-sync.md) for the full procedure. Remotes:
+
+```text
+origin    → this fork (Better Chat Cut)
+upstream  → https://github.com/0xsline/OpenChatCut.git
+```
+
+Architecture and roadmap: [docs/architecture.md](docs/architecture.md) · [docs/roadmap.md](docs/roadmap.md)
+
+---
+
+## Upstream: OpenChatCut
+
+The content below is the upstream OpenChatCut README, retained for attribution and baseline documentation.
 
 <p align="center">
   <a href="README_ZH.md">简体中文</a> · <strong>English</strong>
@@ -40,6 +92,7 @@
   <img alt="Electron" src="https://img.shields.io/badge/Electron-43-47848F?style=flat&logo=electron&logoColor=white" />
   <img alt="MCP" src="https://img.shields.io/badge/MCP-Agent_native-7C3AED?style=flat" />
 </p>
+
 
 <p align="center">
   <a href="https://linux.do" alt="LINUX DO"><img src="https://shorturl.at/ggSqS" /></a>
@@ -247,8 +300,8 @@ These are early builds. The macOS packages are not yet signed or notarized, so t
 Requires Node.js 24.x and npm. The supported Node.js range is enforced by `package.json`, and `.nvmrc` selects the matching major version for Node version managers.
 
 ```bash
-git clone https://github.com/0xsline/OpenChatCut.git
-cd OpenChatCut
+git clone https://github.com/minhvhdev/better-chat-cut.git
+cd better-chat-cut
 npm install
 cp .env.example .env.local
 npm run dev

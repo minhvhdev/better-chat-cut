@@ -1,0 +1,2 @@
+# Keep shell scripts LF so Git Bash / WSL can execute them on Windows checkouts.
+.cursor/skills/**/*.sh text eol=lf

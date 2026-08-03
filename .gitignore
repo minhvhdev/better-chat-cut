@@ -30,11 +30,32 @@ test-results/
 /tmp/
 /temp/
 
-# export output
+# export output / rendered video
 /out.*
 /exports/
 /*.ccproj.json
 /*.fcpxml
+/*.mp4
+/*.webm
+/*.mov
+/output-video/
+/renders/
+
+# render / preview caches
+/.preview-cache/
+/.render-cache/
+/preview-cache/
+/render-cache/
+
+# temporary TTS / voice scratch
+/tts-temp/
+/.tts/
+/tmp-tts/
+
+# regenerable Better Chat Cut asset search indexes
+/.asset-index/
+/packages/**/.search-index/
+/packages/**/search-index/
 
 # secrets
 .env
@@ -61,8 +82,11 @@ AGENTS.md
 .claude/
 # Impeccable design-hook state and configuration
 .impeccable/
-# Private working documents such as TODOs and design notes; publishable docs belong elsewhere
-docs/
+# Private working documents such as TODOs and design notes; tracked publishable docs are allowlisted below
+docs/*
+!docs/architecture.md
+!docs/roadmap.md
+!docs/upstream-sync.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

@@ -50,6 +50,8 @@ function withTrackCaptions(s: TimelineState, captions: CaptionsData | null, trac
 export type Action =
   | { type: 'add'; item: Omit<TimelineItem, 'startFrame'>; startFrame?: number; ripple?: boolean }
   | { type: 'updateProps'; id: string; patch: Record<string, unknown> }
+  /** Additive patch for clip metadata (name/width/height/props) used by Better Chat Cut scene sync. */
+  | { type: 'patchItem'; id: string; patch: { name?: string; width?: number; height?: number; props?: Record<string, unknown> } }
   | { type: 'move'; id: string; track?: TrackId; startFrame?: number }
   | { type: 'retime'; id: string; startFrame?: number; durationInFrames?: number; srcInFrame?: number; ripple?: boolean }
   | { type: 'slip'; id: string; deltaInFrames: number }
@@ -169,7 +171,7 @@ export type Dispatch = (a: Action | BatchAction | HistoryControlAction) => void;
 /** dispatch at the project level: per-timeline + project actions + history control */
 export type ProjectDispatch = (a: AnyAction | HistoryControlAction) => void;
 
-const MUTATING = new Set(['add', 'updateProps', 'move', 'retime', 'slip', 'setVolume', 'setFade', 'setTransform', 'setFilters', 'setZoom', 'setEffects', 'setSpeed', 'replaceMedia', 'reframeKeyframe', 'removeReframeKeyframe', 'setKeyframe', 'removeKeyframe', 'clearKeyframes', 'addTransition', 'setTransition', 'removeTransition', 'addMarker', 'updateMarker', 'removeMarker', 'duplicate', 'remove', 'split', 'clear', 'addAsset', 'setCanvas', 'toggleTrack', 'track.create', 'track.update', 'track.delete', 'track.tighten', 'setCaptions', 'updateCaptions', 'updateWatermark', 'setItemTranscript', 'setItemVariants', 'toggleWord', 'deleteWords', 'cleanScript', 'setGapCap', 'setTranscriptPlayOrder', 'reorderTrackItems', 'clearEdits', 'fixTranscriptWord', 'renameSpeaker', 'setItemDenoise', 'setFullState',
+const MUTATING = new Set(['add', 'updateProps', 'patchItem', 'move', 'retime', 'slip', 'setVolume', 'setFade', 'setTransform', 'setFilters', 'setZoom', 'setEffects', 'setSpeed', 'replaceMedia', 'reframeKeyframe', 'removeReframeKeyframe', 'setKeyframe', 'removeKeyframe', 'clearKeyframes', 'addTransition', 'setTransition', 'removeTransition', 'addMarker', 'updateMarker', 'removeMarker', 'duplicate', 'remove', 'split', 'clear', 'addAsset', 'setCanvas', 'toggleTrack', 'track.create', 'track.update', 'track.delete', 'track.tighten', 'setCaptions', 'updateCaptions', 'updateWatermark', 'setItemTranscript', 'setItemVariants', 'toggleWord', 'deleteWords', 'cleanScript', 'setGapCap', 'setTranscriptPlayOrder', 'reorderTrackItems', 'clearEdits', 'fixTranscriptWord', 'renameSpeaker', 'setItemDenoise', 'setFullState',
   // project-level (tl.switch is navigation → deliberately NOT here, so it makes no history step)
   'tl.create', 'tl.duplicate', 'tl.delete', 'tl.rename', 'tl.retarget', 'tl.setHidden', 'tl.setDoc',
   'pool.createFolder', 'pool.renameFolder', 'pool.deleteFolder', 'pool.moveAssets', 'pool.updateAsset', 'pool.setTranscription', 'pool.relinkAsset', 'pool.removeAsset']);
@@ -454,6 +456,22 @@ function applyAction(s: TimelineState, a: Action): TimelineState {
           it.id === a.id ? { ...it, props: { ...it.props, ...a.patch } } : it,
         ),
       };
+    case 'patchItem': {
+      if (lockedItem(s, a.id)) return s;
+      return {
+        ...s,
+        items: s.items.map((it) => {
+          if (it.id !== a.id) return it;
+          return {
+            ...it,
+            ...(a.patch.name !== undefined ? { name: a.patch.name } : {}),
+            ...(a.patch.width !== undefined ? { width: a.patch.width } : {}),
+            ...(a.patch.height !== undefined ? { height: a.patch.height } : {}),
+            ...(a.patch.props !== undefined ? { props: a.patch.props } : {}),
+          };
+        }),
+      };
+    }
     case 'move': {
       const target = s.items.find((it) => it.id === a.id);
       if (!target) return s;

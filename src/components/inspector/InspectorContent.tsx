@@ -231,6 +231,23 @@ function MotionGraphicFields({ item, schema, mixed, onChange }: {
   onChange: (key: string, value: unknown) => void;
 }) {
   const t = useT();
+  if (item.templateId === 'better-chat-cut.scene-v1') {
+    const binding = item.props?.__betterChatCutScene as {
+      sourceDraft?: { draftId?: string; draftRevision?: number };
+      sceneContentHash?: string;
+      scene?: { name?: string; durationInFrames?: number; nodes?: unknown[] };
+    } | undefined;
+    return (
+      <div className="cc-insp-muted">
+        <div>{t('Better Chat Cut 场景片段（只读）')}</div>
+        <div>{binding?.scene?.name ?? item.name}</div>
+        <div>draft: {binding?.sourceDraft?.draftId ?? '—'} @ r{binding?.sourceDraft?.draftRevision ?? '—'}</div>
+        <div>hash: {(binding?.sceneContentHash ?? '').slice(0, 12) || '—'}</div>
+        <div>nodes: {binding?.scene?.nodes?.length ?? 0} · duration: {binding?.scene?.durationInFrames ?? '—'}</div>
+        <div>{t('使用 scene_draft_* / scene_clip_sync 编辑')}</div>
+      </div>
+    );
+  }
   if (schema.length === 0) return <div className="cc-insp-muted">{t('该模板无可编辑属性。')}</div>;
   return (
     <div className="cc-insp-mg-grid">

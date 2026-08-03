@@ -1,6 +1,14 @@
 import { useEffect, useMemo } from 'react';
 import { Audio as BrowserAudio, Video as BrowserVideo, type AudioProps as BrowserAudioProps, type VideoProps as BrowserVideoProps } from '@remotion/media';
-import { AbsoluteFill, Audio as ServerAudio, Img, OffthreadVideo, Sequence, getRemotionEnvironment, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Audio as ServerAudio, Img, OffthreadVideo, Sequence, getRemotionEnvironment, useCurrentFrame, useVideoConfig } from 'remotion';
+import { BetterChatCutTimelineScene } from '../../packages/project-scene-bindings/src/render/BetterChatCutTimelineScene.tsx';
+import { BETTER_CHAT_CUT_SCENE_TEMPLATE_ID } from '../../packages/project-scene-bindings/src/contracts/scene-clip-item.ts';
+
+function isBetterChatCutSceneClip(item: { kind: string; templateId?: string; props?: Record<string, unknown> }): boolean {
+  return item.kind === 'motion-graphic'
+    && item.templateId === BETTER_CHAT_CUT_SCENE_TEMPLATE_ID
+    && Boolean(item.props && '__betterChatCutScene' in item.props);
+}
 import { getCompiledTemplate } from '../template-host';
 import { CaptionsLayer } from '../captions/CaptionsLayer';
 import { GlTransition } from '../gl/GlTransition';
@@ -334,9 +342,19 @@ function TextLayer({ item, canvasW, canvasH, fit }: { item: TimelineItem; canvas
 // canvas according to the timeline `fit` mode: contain letterboxes,
 // cover fills+crops. At 16:9 with 1920×1080 designs the scale is 1 (no change).
 function ItemLayer({ item, canvasW, canvasH, fit }: { item: TimelineItem; canvasW: number; canvasH: number; fit: AspectFit }) {
+  const { fps } = useVideoConfig();
   const dw = item.width ?? 1920;
   const dh = item.height ?? 1080;
   const scale = fit === 'cover' ? Math.max(canvasW / dw, canvasH / dh) : Math.min(canvasW / dw, canvasH / dh);
+  if (isBetterChatCutSceneClip(item)) {
+    return (
+      <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+        <div style={{ width: dw, height: dh, position: 'relative', flexShrink: 0, transform: `scale(${scale})` }}>
+          <BetterChatCutTimelineScene item={item} timelineFps={fps} />
+        </div>
+      </AbsoluteFill>
+    );
+  }
   try {
     const Template = getCompiledTemplate(item.code ?? '');
     return (

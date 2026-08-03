@@ -61,6 +61,8 @@ export interface EditorCommands {
   addSolidItem: (at?: { track?: TrackId; startFrame?: number; durationInFrames?: number; color?: string; name?: string }) => void;
   addTextClip: (at?: { track?: TrackId; startFrame?: number; durationInFrames?: number; ripple?: boolean }) => void;
   updateItemProps: (id: string, patch: Record<string, unknown>) => void;
+  /** Replace clip metadata fields atomically (Better Chat Cut scene sync). */
+  patchItem: (id: string, patch: { name?: string; width?: number; height?: number; props?: Record<string, unknown> }) => void;
   moveItem: (id: string, to: { track?: TrackId; startFrame?: number }) => void;
   setItemTiming: (id: string, timing: { startFrame?: number; durationInFrames?: number; srcInFrame?: number; ripple?: boolean }) => void;
   slipItem: (id: string, deltaInFrames: number) => SlipResult;
@@ -404,6 +406,7 @@ function buildCommands(dispatch: ProjectDispatch, getDoc: () => ProjectDoc): Edi
         return { ok: true, itemId: id };
       },
       updateItemProps: (id, patch) => dispatch({ type: 'updateProps', id, patch }),
+      patchItem: (id, patch) => dispatch({ type: 'patchItem', id, patch }),
       moveItem: (id, to) => {
         const item = activeTimeline(getDoc()).items.find((candidate) => candidate.id === id);
         const track = to.track && item ? pickTrack(to.track, item.kind === 'audio' ? 'audio' : 'video') : to.track;

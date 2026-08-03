@@ -8,6 +8,10 @@ import {
   type BetterChatCutSceneStillProps,
 } from './BetterChatCutSceneStill.tsx';
 import {
+  BetterChatCutThumbnailStill,
+  type BetterChatCutThumbnailStillProps,
+} from './BetterChatCutThumbnailStill.tsx';
+import {
   BetterChatCutSceneContactSheet,
   type BetterChatCutSceneContactSheetProps,
 } from './BetterChatCutSceneContactSheet.tsx';
@@ -124,6 +128,26 @@ export function BetterChatCutCompositions() {
           fps: props.scene.fps ?? 30,
           width: props.width ?? props.scene.canvas.width,
           height: props.height ?? props.scene.canvas.height,
+        })}
+        durationInFrames={1}
+        fps={30}
+        width={1280}
+        height={720}
+      />
+      <Composition
+        id="BetterChatCutThumbnailStill"
+        component={BetterChatCutThumbnailStill}
+        defaultProps={{
+          scene: DEFAULT_SCENE,
+          frame: 0,
+          width: 1280,
+          height: 720,
+        } satisfies BetterChatCutThumbnailStillProps}
+        calculateMetadata={({ props }) => ({
+          durationInFrames: 1,
+          fps: props.scene.fps ?? 30,
+          width: props.width ?? 1280,
+          height: props.height ?? 720,
         })}
         durationInFrames={1}
         fps={30}

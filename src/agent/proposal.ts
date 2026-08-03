@@ -70,6 +70,7 @@ const VERB: Record<string, string> = {
   scene_clip_bind: 'Add Better Chat Cut scene clip',
   scene_clip_sync: 'Sync Better Chat Cut scene clip',
   video_plan_assemble: 'Assemble Better Chat Cut VideoPlan',
+  narration_apply_timeline: 'Apply Better Chat Cut narration',
 };
 
 function targetOf(args: Record<string, unknown>, actions: AnyAction[]): string {

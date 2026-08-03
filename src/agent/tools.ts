@@ -48,6 +48,7 @@ import { COLOR_SCOPE_TOOL_NAMES, COLOR_SCOPE_TOOL_SCHEMAS } from './tools/schema
 import { BEAT_TOOL_NAMES, BEAT_TOOL_SCHEMAS } from './tools/schemas/beat-tools';
 import { SCENE_CLIP_TOOL_NAMES, SCENE_CLIP_TOOL_SCHEMAS } from './tools/schemas/scene-clip-tools';
 import { VIDEO_PLAN_TOOL_NAMES, VIDEO_PLAN_TOOL_SCHEMAS } from './tools/schemas/video-plan-tools';
+import { NARRATION_TOOL_NAMES, NARRATION_TOOL_SCHEMAS } from './tools/schemas/narration-tools';
 import { withProgressTargets } from './tools/schemas/progress';
 
 // Canonical tool definitions (name / description / JSON input_schema). Each one
@@ -308,6 +309,7 @@ export const TOOL_SCHEMAS: AgentToolSchema[] = [
   ...BEAT_TOOL_SCHEMAS,
   ...SCENE_CLIP_TOOL_SCHEMAS,
   ...VIDEO_PLAN_TOOL_SCHEMAS,
+  ...NARRATION_TOOL_SCHEMAS,
   // Optional advisory review of multi-scene plans; it has no runtime enforcement role.
   ...SCENE_QUALITY_TOOL_SCHEMAS,
   // ToolSearch — keyword discovery over this catalog
@@ -386,6 +388,7 @@ const EXECUTOR_GROUPS: ReadonlyArray<readonly [ReadonlySet<string>, ToolExecutor
   [BEAT_TOOL_NAMES, async () => (await import('./tools/beat-tools')).execBeatTool],
   [SCENE_CLIP_TOOL_NAMES, async () => (await import('./tools/scene-clip-tools')).execSceneClipTool],
   [VIDEO_PLAN_TOOL_NAMES, async () => (await import('./tools/video-plan-tools')).execVideoPlanTool],
+  [NARRATION_TOOL_NAMES, async () => (await import('./tools/narration-tools')).execNarrationTool],
   [AUDIO_ASSET_TOOL_NAMES, async () => (await import('./tools/audio-asset-tools')).execAudioAssetTool],
   [SCENE_QUALITY_TOOL_NAMES, async () => (await import('./tools/scene-quality-tools')).execSceneQualityTool],
 ];

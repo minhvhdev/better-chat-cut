@@ -35,9 +35,14 @@ import {
   VIDEO_PLAN_CONTROL_TOOLS,
   runVideoPlanControlTool,
 } from './better-chat-cut/video-plan-tools.ts';
+import {
+  NARRATION_CONTROL_TOOLS,
+  runNarrationControlTool,
+} from './better-chat-cut/narration-tools.ts';
 import { SceneDraftError } from '../../packages/scene-drafts/src/index.ts';
 import { SceneClipError } from '../../packages/project-scene-bindings/src/index.ts';
 import { VideoPlanError } from '../../packages/video-plans/src/contracts/video-plan-errors.ts';
+import { NarrationError } from '../../packages/narration-plans/src/contracts/narration-errors.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 import { MotionSourceError } from '../../packages/motion-source-pipeline/src/index.ts';
 import { ScenePreviewError } from '../../packages/scene-graph/src/preview/scene-preview-errors.ts';
@@ -148,6 +153,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...VIDEO_PLAN_CONTROL_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...NARRATION_CONTROL_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -399,6 +410,19 @@ async function callControlTool(
       return await runVideoPlanControlTool(name, args);
     } catch (error) {
       if (error instanceof VideoPlanError) {
+        throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
+      }
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (NARRATION_CONTROL_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runNarrationControlTool(name, args);
+    } catch (error) {
+      if (error instanceof NarrationError) {
         throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
       }
       throw new ExternalEditorCallError(

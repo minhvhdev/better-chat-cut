@@ -51,6 +51,11 @@ import {
   PUBLISHING_CONTROL_TOOLS,
   runPublishingControlTool,
 } from './better-chat-cut/publishing-tools.ts';
+import {
+  WORKSPACE_CONTROL_TOOLS,
+  runWorkspaceControlTool,
+} from './better-chat-cut/workspace-tools.ts';
+import { WorkspaceError } from '../../packages/production-workspace-contracts/src/index.ts';
 import { SceneDraftError } from '../../packages/scene-drafts/src/index.ts';
 import { SceneClipError } from '../../packages/project-scene-bindings/src/index.ts';
 import { VideoPlanError } from '../../packages/video-plans/src/contracts/video-plan-errors.ts';
@@ -194,6 +199,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...PUBLISHING_CONTROL_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...WORKSPACE_CONTROL_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -499,6 +510,19 @@ async function callControlTool(
       return await runPublishingControlTool(name, args);
     } catch (error) {
       if (error instanceof PublishingOperationError || error instanceof PublishingContractError) {
+        throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
+      }
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (WORKSPACE_CONTROL_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runWorkspaceControlTool(name, args);
+    } catch (error) {
+      if (error instanceof WorkspaceError) {
         throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
       }
       throw new ExternalEditorCallError(

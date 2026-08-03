@@ -93,6 +93,9 @@ docs/*
 !docs/motion-source-pipeline.md
 !docs/motion-authoring-sdk.md
 !docs/motion-source-security.md
+!docs/scene-graph-v1.md
+!docs/scene-runtime.md
+!docs/scene-preview.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

@@ -14,7 +14,8 @@ Live under `server/external-agent/better-chat-cut/` and register on the existing
 - Catalog: `asset_search`, `asset_get`, validate/create/update/transition tools
 - Motion: `motion_asset_inspect`, `motion_asset_validate_props`, `motion_asset_render_preview`
 - Motion source (M2B): `motion_source_get_contract`, `motion_asset_source_*`, `motion_asset_prepare_staging`
+- Scene (M3A): `scene_get_contract`, `scene_validate`, `scene_evaluate_frame`, `scene_render_preview`
 
-Remotion preview compositions live in `remotion/better-chat-cut/` (hooked from `remotion/Root.tsx`).
+Remotion preview compositions live in `remotion/better-chat-cut/` (hooked from `remotion/Root.tsx`), including scene still/contact-sheet.
 
-See [docs/architecture.md](../../docs/architecture.md), [docs/motion-runtime.md](../../docs/motion-runtime.md), [docs/motion-source-pipeline.md](../../docs/motion-source-pipeline.md).
+See [docs/architecture.md](../../docs/architecture.md), [docs/scene-graph-v1.md](../../docs/scene-graph-v1.md), [docs/scene-preview.md](../../docs/scene-preview.md).

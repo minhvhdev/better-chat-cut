@@ -43,4 +43,4 @@ All read-only; no edit session/project required; no timeline mutation.
 
 ## Known limitations
 
-Candidate draft runtimes rejected. No scene file write. No project/timeline integration. Pixel-perfect collision not claimed (AABB only).
+Candidate draft runtimes rejected. Inline `scene_*` tools still do not write files. Persistent drafts use M4A `scene_draft_*` tools (reuse this preview cache). No project/timeline integration yet. Pixel-perfect collision not claimed (AABB only).

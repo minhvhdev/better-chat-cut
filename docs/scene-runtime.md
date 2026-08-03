@@ -39,6 +39,6 @@ No `Math.random`, clocks, timers, `eval`, or DOM measurement in runtime/geometry
 
 ## Known limitations
 
-- Inline scenes only (no persistence)
+- Inline evaluation/render only at the Scene Graph layer (persistence is M4A scene drafts)
 - Approximate AABB overlap analysis
 - No clipping/mask groups, camera, audio, or multi-scene video

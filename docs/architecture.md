@@ -59,13 +59,14 @@ Better Chat Cut
 | `packages/motion-authoring-sdk/` | Restricted authoring SDK for agent-written components (M2B) |
 | `packages/motion-source-pipeline/` | Source validate/build/candidate preview/prepare-staging (M2B) |
 | `packages/scene-graph/` | SceneDocumentV1 schema, frame evaluation, Remotion scene preview (M3A) |
+| `packages/scene-drafts/` | Persistent scene drafts, AssetPlan→Scene composition, semantic patching (M4A) |
 | `packages/scene-templates/` | Scene composition templates (planned) |
 | `packages/better-chat-cut-mcp/` | Extra semantic MCP tools beyond thin adapters (planned) |
 | `extensions/better-chat-cut/` | Catalog manifests + thin integration glue |
-| `server/external-agent/better-chat-cut/` | MCP adapters (`asset_*`, `motion_*`, `scene_*`) |
+| `server/external-agent/better-chat-cut/` | MCP adapters (`asset_*`, `motion_*`, `scene_*`, `scene_draft_*`) |
 | `remotion/better-chat-cut/` | Preview compositions hooked into existing `remotion/Root.tsx` |
 
-Further detail: [motion-runtime.md](motion-runtime.md), [motion-preview-harness.md](motion-preview-harness.md), [motion-source-pipeline.md](motion-source-pipeline.md), [scene-graph-v1.md](scene-graph-v1.md), [scene-runtime.md](scene-runtime.md), [scene-preview.md](scene-preview.md), [asset-manifest-v1.md](asset-manifest-v1.md).
+Further detail: [motion-runtime.md](motion-runtime.md), [motion-preview-harness.md](motion-preview-harness.md), [motion-source-pipeline.md](motion-source-pipeline.md), [scene-graph-v1.md](scene-graph-v1.md), [scene-runtime.md](scene-runtime.md), [scene-preview.md](scene-preview.md), [asset-manifest-v1.md](asset-manifest-v1.md), [asset-plan-v1.md](asset-plan-v1.md), [scene-draft-v1.md](scene-draft-v1.md), [asset-plan-scene-composition.md](asset-plan-scene-composition.md), [semantic-scene-patching.md](semantic-scene-patching.md), [scene-draft-persistence.md](scene-draft-persistence.md).
 
 ## Nguyên tắc tích hợp
 

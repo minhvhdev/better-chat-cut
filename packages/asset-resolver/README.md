@@ -16,7 +16,7 @@ M3B implemented. Resolves `AssetRequirementSetV1` into pinned `AssetPlanV1` deci
 
 ## Non-goals
 
-Does **not** create assets, write source, publish, generate SceneDocuments, render previews, or mutate projects/timelines.
+Does **not** create assets, write source, publish, or mutate projects/timelines. SceneDocument generation from AssetPlan is handled by M4A `packages/scene-drafts`.
 
 ## Verify
 

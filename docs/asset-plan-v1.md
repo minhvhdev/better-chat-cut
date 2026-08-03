@@ -22,4 +22,4 @@ Includes: `requirementSetHash`, `planHash`, `catalogRevision`, `motionRuntimeRev
 
 ## Non-goals
 
-Plans are not stored in projects in M3B. They are not SceneDocuments.
+Plans are not stored in OpenChatCut projects in M3B. M4A can compose a SceneDocument from a plan into a standalone scene draft; plans themselves are still not project fields.

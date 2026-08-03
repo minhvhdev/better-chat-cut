@@ -36,7 +36,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M3B complete** when batch AssetRequirementSetV1 → AssetPlanV1 resolution (exact/reuse/variant/composition/duplicate guard/creation brief) and read-only `asset_resolve_*` MCP tools pass verification. M3B does **not** create assets, persist AssetPlans, or generate SceneDocuments.
 
-**Next:** M4A — Persistent Scene Drafts, AssetPlan-to-Scene Composition and Semantic Scene Patching
+**M4A complete** when persistent scene drafts, AssetPlan→Scene composition, semantic patching, preview-review-patch, optimistic concurrency, undo/redo, and `scene_draft_*` MCP tools pass verification. M4A does **not** bind drafts to projects/timeline.
+
+**Next:** M4B — Project Scene Bindings, Timeline Clip Integration and Edit-Session Commands
 
 ## Milestone 3 — Asset Resolver
 
@@ -73,14 +75,18 @@ Resolver does **not** auto-create assets. AssetPlan is **not** stored in project
 * Render frame. *(M3A still)*
 * Render contact sheet. *(M3A)*
 
-## Milestone 4A — Persistent Scene Drafts (planned)
+## Milestone 4A — Persistent Scene Drafts (done when criteria pass)
 
-* Scene draft store
-* Scene create/get/update
-* AssetPlan-to-Scene conversion
-* Semantic scene operations / patch validation
-* Preview-review-patch loop
-* Optimistic concurrency + undoable drafts
+* Persistent standalone scene drafts under local Better Chat Cut data
+* AssetPlan-to-Scene composition (exact/reuse/variant/composition)
+* Semantic scene patching + dry-run + change summary
+* Preview-review-patch loop (reuse M3A preview cache)
+* Optimistic concurrency, receipts, audit journal, undo/redo
+
+**M4A provides:** persistent drafts, AssetPlan composition, semantic patching, preview-review-patch, concurrency, undo/redo.  
+**Not yet:** project persistence integration, timeline clips, editor UI, multi-scene video pipeline.
+
+**Next proposed:** M4B — Project Scene Bindings, Timeline Clip Integration and Edit-Session Commands
 
 ## Milestone 5 — Video Pipeline
 
@@ -97,4 +103,4 @@ Resolver does **not** auto-create assets. AssetPlan is **not** stored in project
 
 ## Status
 
-M0, M1A, M1B, M2A, M2B, M3A, and M3B are implemented on `main`. Later milestones require separate design approval before implementation. Better Chat Cut is **not** a complete product yet — scene persistence, timeline integration, and multi-scene video pipeline remain.
+M0, M1A, M1B, M2A, M2B, M3A, M3B, and M4A are implemented on `main`. Later milestones require separate design approval before implementation. Better Chat Cut is **not** a complete product yet — project/timeline scene integration and multi-scene video pipeline remain.

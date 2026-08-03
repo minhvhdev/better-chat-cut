@@ -13,8 +13,8 @@ Deterministic Scene Graph schema, runtime evaluation, and Remotion preview for B
 
 ## Non-goals (M3A)
 
-- No project/timeline persistence
-- No semantic scene patch
+- No project/timeline persistence (see M4A `packages/scene-drafts` for standalone drafts)
+- No semantic scene patch (see M4A)
 - No draft candidate runtimes in normal scene rendering
 - No auto asset resolution (use M3B `packages/asset-resolver` + MCP `asset_resolve_batch` instead)
 

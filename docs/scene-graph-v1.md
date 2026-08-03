@@ -68,4 +68,4 @@ See `packages/scene-graph/src/fixtures/valid/` (`scene.basic-explainer`, `scene.
 
 ## Migration
 
-M3A is inline/read-only. Future milestones may add persistence without changing v1 semantics unless `schemaVersion` bumps.
+M3A is inline/read-only. M4A adds standalone persistent scene drafts (`packages/scene-drafts`) without changing SceneDocumentV1 semantics. Project/timeline binding is M4B.

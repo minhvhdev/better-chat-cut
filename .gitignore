@@ -99,6 +99,10 @@ docs/*
 !docs/asset-requirements-v1.md
 !docs/asset-resolver.md
 !docs/asset-plan-v1.md
+!docs/scene-draft-v1.md
+!docs/asset-plan-scene-composition.md
+!docs/semantic-scene-patching.md
+!docs/scene-draft-persistence.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

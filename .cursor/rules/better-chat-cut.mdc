@@ -1,0 +1,18 @@
+---
+description: Better Chat Cut fork conventions, isolation, and Git safety
+alwaysApply: true
+---
+
+# Better Chat Cut
+
+- Project name: **Better Chat Cut** (technical: `better-chat-cut`).
+- This is a personal fork of OpenChatCut. Keep LICENSE and upstream attribution.
+- Prefer new code under `extensions/`, `packages/`, `docs/`, and `.cursor/` over editing OpenChatCut core.
+- Do not refactor upstream code without a clear need. Do not reformat whole upstream files.
+- Do not create extra long-lived branches; develop on `main`.
+- Never `git push --force`. Never `git reset --hard` on `main`.
+- Do not auto-run `/sync-openchatcut`; only when the user explicitly invokes it.
+- Future components must be reusable across projects and themes.
+- Future assets need manifest, ID, version, category, tag, and capability metadata.
+- Agents must search/reuse catalog assets before creating new ones.
+- Do not embed one-off generated component source into projects when a catalog asset can be referenced by ID + version.

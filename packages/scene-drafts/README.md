@@ -25,4 +25,4 @@ npm run verify:better-chat-cut-scene-drafts:render
 - [semantic-scene-patching.md](../../docs/semantic-scene-patching.md)
 - [scene-draft-persistence.md](../../docs/scene-draft-persistence.md)
 
-M4A does **not** bind drafts to OpenChatCut projects or timeline clips (see M4B).
+M4B binds drafts into OpenChatCut projects as motion-graphic scene clips via `packages/project-scene-bindings` (see docs/project-scene-binding-v1.md).

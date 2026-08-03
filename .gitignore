@@ -103,6 +103,10 @@ docs/*
 !docs/asset-plan-scene-composition.md
 !docs/semantic-scene-patching.md
 !docs/scene-draft-persistence.md
+!docs/project-scene-binding-v1.md
+!docs/scene-timeline-clips.md
+!docs/scene-clip-sync.md
+!docs/scene-edit-session-workflow.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

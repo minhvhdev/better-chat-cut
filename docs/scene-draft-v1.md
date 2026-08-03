@@ -35,4 +35,4 @@ Schema version is `1.0.0`. Future versions must keep readable history snapshots 
 
 ## Not in M4A
 
-Project bindings, timeline clips, EditorCore commands, draft deletion, and history compaction are deferred to M4B+.
+Project bindings and timeline clips are implemented in M4B via SceneClipBindingV1. Draft deletion and history compaction remain later.

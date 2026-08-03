@@ -100,6 +100,17 @@ export interface SceneDraftStore {
   }): Promise<SceneDraftValidationResultV1>;
   renderPreview(input: RenderSceneDraftPreviewInput): Promise<unknown>;
   getContract(format?: 'summary' | 'full'): unknown;
+  createBindingPayload(input: {
+    draftId: string;
+    historyEntryId?: string;
+  }): Promise<{
+    draftId: string;
+    draftRevision: number;
+    historyEntryId: string;
+    sceneContentHash: string;
+    scene: import('../../../scene-graph/src/contracts/scene-document.ts').SceneDocumentV1;
+    sourceAssetPlan?: import('../contracts/asset-plan-binding.ts').SceneDraftAssetPlanReferenceV1;
+  }>;
 }
 
 async function pathExists(path: string): Promise<boolean> {
@@ -793,6 +804,32 @@ export function createSceneDraftService(options: SceneDraftServiceOptions = {}):
         cellLabelMode: input.cellLabelMode,
         cellWidth: input.cellWidth,
       });
+    },
+
+    async createBindingPayload(input) {
+      const draftId = assertSafeDraftId(input.draftId);
+      const detail = await this.get(draftId, { includeHistory: true });
+      if (!detail) {
+        throw new SceneDraftError('SCENE_DRAFT_NOT_FOUND', `Draft ${draftId} not found`);
+      }
+      const paths = resolveSceneDraftPaths(root, draftId);
+      const historyEntryId = input.historyEntryId
+        ?? detail.history.entries[detail.history.cursor]?.entryId;
+      if (!historyEntryId) {
+        throw new SceneDraftError('SCENE_DRAFT_HISTORY_ENTRY_NOT_FOUND', 'No history entry available');
+      }
+      if (!detail.history.entries.some((entry) => entry.entryId === historyEntryId)) {
+        throw new SceneDraftError('SCENE_DRAFT_HISTORY_ENTRY_NOT_FOUND', `History entry ${historyEntryId} not found`);
+      }
+      const entry = await readHistoryEntry(paths, historyEntryId);
+      return {
+        draftId,
+        draftRevision: detail.summary.revision,
+        historyEntryId,
+        sceneContentHash: entry.sceneContentHash,
+        scene: entry.scene,
+        sourceAssetPlan: detail.sourceAssetPlan,
+      };
     },
   };
 

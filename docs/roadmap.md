@@ -38,7 +38,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M4A complete** when persistent scene drafts, AssetPlan→Scene composition, semantic patching, preview-review-patch, optimistic concurrency, undo/redo, and `scene_draft_*` MCP tools pass verification. M4A does **not** bind drafts to projects/timeline.
 
-**Next:** M4B — Project Scene Bindings, Timeline Clip Integration and Edit-Session Commands
+**M4B complete** when portable SceneClipBindingV1, motion-graphic timeline clips, edit-session bind/sync, timeline/Remotion preview, and MCP tools pass verification. M4B does **not** assemble multi-scene videos or ship a dedicated scene UI.
+
+**Next:** M5A — Multi-scene Video Plan, Timeline Assembly and Project Render Validation
 
 ## Milestone 3 — Asset Resolver
 
@@ -86,7 +88,18 @@ Resolver does **not** auto-create assets. AssetPlan is **not** stored in project
 **M4A provides:** persistent drafts, AssetPlan composition, semantic patching, preview-review-patch, concurrency, undo/redo.  
 **Not yet:** project persistence integration, timeline clips, editor UI, multi-scene video pipeline.
 
-**Next proposed:** M4B — Project Scene Bindings, Timeline Clip Integration and Edit-Session Commands
+## Milestone 4B — Project Scene Bindings (done when criteria pass)
+
+* Portable SceneClipBindingV1 with embedded snapshot + binding hash
+* Motion-graphic timeline clips (`better-chat-cut.scene-v1`)
+* Explicit scene_clip_bind / scene_clip_sync via edit sessions
+* Timeline + proposal preview + headless Remotion path
+* MCP: scene_binding_*, scene_draft_get_binding_payload, scene_clip_*
+
+**M4B provides:** project-bound scene clips, explicit sync, one undo-step apply.  
+**Not yet:** multi-scene VideoPlan, TTS/subtitles, asset packaging, dedicated scene UI.
+
+**Next proposed:** M5A — Multi-scene Video Plan, Timeline Assembly and Project Render Validation
 
 ## Milestone 5 — Video Pipeline
 
@@ -103,4 +116,4 @@ Resolver does **not** auto-create assets. AssetPlan is **not** stored in project
 
 ## Status
 
-M0, M1A, M1B, M2A, M2B, M3A, M3B, and M4A are implemented on `main`. Later milestones require separate design approval before implementation. Better Chat Cut is **not** a complete product yet — project/timeline scene integration and multi-scene video pipeline remain.
+M0, M1A, M1B, M2A, M2B, M3A, M3B, M4A, and M4B are implemented on `main`. Later milestones require separate design approval before implementation. Better Chat Cut is **not** a complete product yet — multi-scene assembly, timing/TTS/subtitles, and full publish pipeline remain.

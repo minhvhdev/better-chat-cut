@@ -24,7 +24,7 @@ import {
   type EditorBinding,
 } from './broker.ts';
 import { createExternalProject, listExternalProjects } from './projects.ts';
-import { ASSET_SEARCH_TOOL, runAssetSearch } from './better-chat-cut/asset-search.ts';
+import { ASSET_SEARCH_TOOL, CATALOG_TOOLS, runCatalogTool } from './better-chat-cut/asset-search.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
 
 export const OPENCHATCUT_SKILL_BASELINE = '2026-08-01.1';
@@ -90,12 +90,12 @@ const CONTROL_TOOLS: Tool[] = [
     },
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
   },
-  {
-    name: ASSET_SEARCH_TOOL.name,
-    description: ASSET_SEARCH_TOOL.description,
-    inputSchema: ASSET_SEARCH_TOOL.inputSchema,
-    annotations: ASSET_SEARCH_TOOL.annotations,
-  },
+  ...CATALOG_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
 ];
 
 interface McpSession {
@@ -254,9 +254,9 @@ async function callControlTool(
     const projectId = projectForRead(session, args.projectId);
     return { projectId, editorUrl: editorUrl(args, projectId, baseUrl) };
   }
-  if (name === ASSET_SEARCH_TOOL.name) {
+  if (CATALOG_TOOLS.some((tool) => tool.name === name) || name === ASSET_SEARCH_TOOL.name) {
     try {
-      return await runAssetSearch(args);
+      return await runCatalogTool(name, args);
     } catch (error) {
       if (error instanceof AssetRegistryError) {
         throw new ExternalEditorCallError('rejected', error.message);

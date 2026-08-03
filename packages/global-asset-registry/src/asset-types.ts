@@ -134,14 +134,31 @@ export type AssetCatalogDiagnostic = {
 };
 
 export type LoadAssetCatalogOptions = {
-  roots: string[];
+  roots: Array<string | { path: string; scope?: 'bundled' | 'user'; writable?: boolean }>;
   strict?: boolean;
   verifyReferencedFiles?: boolean;
 };
 
+export type AssetRegistryRecord = {
+  manifest: AssetManifestV1;
+  contentHash: string;
+  storageScope: 'bundled' | 'user';
+  writable: boolean;
+  relativeManifestPath: string;
+};
+
 export type AssetCatalogLoadResult = {
   manifests: AssetManifestV1[];
+  records: AssetRegistryRecord[];
   diagnostics: AssetCatalogDiagnostic[];
+};
+
+export type AssetDetail = {
+  manifest: AssetManifestV1;
+  contentHash: string;
+  catalogRevision: string;
+  storageScope: 'bundled' | 'user';
+  writable: boolean;
 };
 
 export type AssetRegistrySnapshot = {

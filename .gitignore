@@ -101,3 +101,5 @@ docs/*
 # Local marketing assets and drafts
 /marketing/
 .pi-*
+
+.serena/

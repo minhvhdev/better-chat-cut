@@ -1,14 +1,37 @@
 import { createHash } from 'node:crypto';
 import { readdir, readFile, realpath, stat } from 'node:fs/promises';
 import { join, relative, resolve, sep } from 'node:path';
+import { computeAssetContentHash } from './asset-hash.ts';
 import { compareSemverDesc } from './asset-normalization.ts';
 import { validateAssetManifest } from './asset-validator.ts';
 import type {
   AssetCatalogDiagnostic,
   AssetCatalogLoadResult,
   AssetManifestV1,
+  AssetRegistryRecord,
   LoadAssetCatalogOptions,
 } from './asset-types.ts';
+
+export { resolveAssetCatalogRoots } from './asset-catalog-roots.ts';
+
+type NormalizedRoot = {
+  path: string;
+  scope: 'bundled' | 'user';
+  writable: boolean;
+};
+
+function normalizeRoot(
+  root: string | { path: string; scope?: 'bundled' | 'user'; writable?: boolean },
+): NormalizedRoot {
+  if (typeof root === 'string') {
+    return { path: root, scope: 'bundled', writable: false };
+  }
+  return {
+    path: root.path,
+    scope: root.scope ?? 'bundled',
+    writable: root.writable === true,
+  };
+}
 
 async function collectAssetFiles(root: string): Promise<string[]> {
   const absoluteRoot = resolve(root);
@@ -24,6 +47,7 @@ async function collectAssetFiles(root: string): Promise<string[]> {
     }
     entries.sort((a, b) => a.name.localeCompare(b.name));
     for (const entry of entries) {
+      if (entry.name === '_meta') continue;
       const full = join(dir, entry.name);
       let targetReal: string;
       try {
@@ -32,9 +56,7 @@ async function collectAssetFiles(root: string): Promise<string[]> {
         continue;
       }
       const rel = relative(rootReal, targetReal);
-      if (rel.startsWith('..') || rel.startsWith(`..${sep}`)) {
-        continue;
-      }
+      if (rel.startsWith('..') || rel.startsWith(`..${sep}`)) continue;
       if (entry.isDirectory()) {
         await walk(full);
         continue;
@@ -60,22 +82,25 @@ export async function loadAssetCatalog(
 ): Promise<AssetCatalogLoadResult> {
   const diagnostics: AssetCatalogDiagnostic[] = [];
   const manifests: AssetManifestV1[] = [];
+  const records: AssetRegistryRecord[] = [];
   const seen = new Map<string, string>();
 
-  for (const root of options.roots) {
+  for (const rawRoot of options.roots) {
+    const root = normalizeRoot(rawRoot);
     let files: string[];
     try {
-      files = await collectAssetFiles(root);
+      files = await collectAssetFiles(root.path);
     } catch (error) {
       diagnostics.push({
         severity: 'error',
         code: 'catalog_root_unreadable',
         message: error instanceof Error ? error.message : String(error),
-        file: root,
+        file: root.path,
       });
       continue;
     }
 
+    const absoluteRoot = resolve(root.path);
     for (const file of files) {
       let text: string;
       try {
@@ -89,8 +114,6 @@ export async function loadAssetCatalog(
         });
         continue;
       }
-
-      // Tolerate UTF-8 BOM from editors/shells on Windows.
       if (text.charCodeAt(0) === 0xfeff) text = text.slice(1);
 
       let raw: unknown;
@@ -164,6 +187,13 @@ export async function loadAssetCatalog(
       }
 
       manifests.push(validated.manifest);
+      records.push({
+        manifest: validated.manifest,
+        contentHash: computeAssetContentHash(validated.manifest),
+        storageScope: root.scope,
+        writable: root.writable,
+        relativeManifestPath: relative(absoluteRoot, file).replace(/\\/g, '/'),
+      });
     }
   }
 
@@ -171,6 +201,11 @@ export async function loadAssetCatalog(
     const byId = a.id.localeCompare(b.id);
     if (byId !== 0) return byId;
     return compareSemverDesc(a.version, b.version);
+  });
+  records.sort((a, b) => {
+    const byId = a.manifest.id.localeCompare(b.manifest.id);
+    if (byId !== 0) return byId;
+    return compareSemverDesc(a.manifest.version, b.manifest.version);
   });
 
   const hasErrors = diagnostics.some((item) => item.severity === 'error');
@@ -182,7 +217,7 @@ export async function loadAssetCatalog(
     throw new Error(`Strict catalog load failed: ${detail}`);
   }
 
-  return { manifests, diagnostics };
+  return { manifests, records, diagnostics };
 }
 
 export function computeCatalogRevision(manifests: AssetManifestV1[]): string {
@@ -194,10 +229,4 @@ export function computeCatalogRevision(manifests: AssetManifestV1[]): string {
     })
     .map((manifest) => JSON.stringify(manifest));
   return createHash('sha256').update(normalized.join('\n')).digest('hex');
-}
-
-export function resolveAssetCatalogRoots(cwd = process.cwd()): string[] {
-  const override = process.env.BETTER_CHAT_CUT_ASSET_CATALOG_ROOT?.trim();
-  if (override) return [resolve(cwd, override)];
-  return [resolve(cwd, 'extensions', 'better-chat-cut', 'catalog', 'manifests')];
 }

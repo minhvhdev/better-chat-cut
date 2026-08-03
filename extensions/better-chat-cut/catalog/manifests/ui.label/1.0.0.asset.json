@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "ui.label",
+  "version": "1.0.0",
+  "name": "Label",
+  "description": "Simple text label",
+  "kind": "ui",
+  "status": "published",
+  "categories": [
+    "starter"
+  ],
+  "tags": [
+    "label",
+    "text"
+  ],
+  "aliases": [
+    "label"
+  ],
+  "capabilities": [
+    "render",
+    "text"
+  ],
+  "styleTags": [
+    "flat-vector"
+  ],
+  "implementation": {
+    "type": "react-component",
+    "entry": "components/ui/Label.tsx",
+    "exportName": "Label"
+  },
+  "propsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "text": {
+        "type": "string"
+      },
+      "color": {
+        "type": "string"
+      },
+      "fontSize": {
+        "type": "number"
+      }
+    }
+  },
+  "license": {
+    "spdx": "AGPL-3.0-or-later",
+    "attribution": "Better Chat Cut contributors"
+  },
+  "provenance": {
+    "origin": "user"
+  }
+}

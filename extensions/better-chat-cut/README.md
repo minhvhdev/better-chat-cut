@@ -2,14 +2,18 @@
 
 Thin integration surface between Better Chat Cut packages and the OpenChatCut editor core.
 
-## Status
+## Layout
 
-Placeholder only (Milestone 0). No runtime glue yet.
+- `catalog/manifests/` — bundled published asset manifests (primitives, animations, background, label)
+- `catalog/previews/` — optional generated PNG stills (`npm run generate:better-chat-cut-previews`)
 
-## Intended role
+## MCP adapters
 
-- Register optional Better Chat Cut capabilities with the host app.
-- Keep fork-specific wiring out of upstream `src/` whenever possible.
-- Expose the fewest possible seams into OpenChatCut command/tool/project layers.
+Live under `server/external-agent/better-chat-cut/` and register on the existing OpenChatCut MCP server:
 
-See [docs/architecture.md](../../docs/architecture.md).
+- Catalog: `asset_search`, `asset_get`, validate/create/update/transition tools
+- Motion: `motion_asset_inspect`, `motion_asset_validate_props`, `motion_asset_render_preview`
+
+Remotion preview compositions live in `remotion/better-chat-cut/` (hooked from `remotion/Root.tsx`).
+
+See [docs/architecture.md](../../docs/architecture.md), [docs/motion-runtime.md](../../docs/motion-runtime.md).

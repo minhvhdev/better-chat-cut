@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "animation.float",
+  "version": "1.0.0",
+  "name": "Float",
+  "description": "Gentle vertical float loop",
+  "kind": "animation",
+  "status": "published",
+  "categories": [
+    "motion"
+  ],
+  "tags": [
+    "animation"
+  ],
+  "aliases": [
+    "float"
+  ],
+  "capabilities": [
+    "animate"
+  ],
+  "styleTags": [
+    "flat-vector"
+  ],
+  "implementation": {
+    "type": "builtin",
+    "entry": "animations/float.ts"
+  },
+  "license": {
+    "spdx": "AGPL-3.0-or-later",
+    "attribution": "Better Chat Cut contributors"
+  },
+  "provenance": {
+    "origin": "user"
+  }
+}

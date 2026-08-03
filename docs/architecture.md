@@ -49,19 +49,20 @@ Better Chat Cut
 - Scene validator
 ```
 
-### Isolation layout (placeholders only in Milestone 0)
+### Isolation layout
 
 | Package / area | Purpose |
 |---|---|
 | `packages/global-asset-registry/` | Shared asset manifests, IDs, versions, lifecycle, deterministic search |
 | `packages/asset-resolver/` | Match requirements → reuse / variant / compose (planned) |
-| `packages/motion-components/` | Reusable SVG/React motion primitives (planned) |
+| `packages/motion-components/` | Reusable SVG/React motion runtime + Remotion preview helpers (M2A) |
 | `packages/scene-templates/` | Scene composition templates (planned) |
 | `packages/better-chat-cut-mcp/` | Extra semantic MCP tools beyond thin adapters (planned) |
-| `extensions/better-chat-cut/` | Catalog + thin integration glue into OpenChatCut core |
-| `server/external-agent/better-chat-cut/` | MCP adapters such as read-only `asset_search` |
+| `extensions/better-chat-cut/` | Catalog manifests + thin integration glue |
+| `server/external-agent/better-chat-cut/` | MCP adapters (`asset_*`, `motion_asset_*`) |
+| `remotion/better-chat-cut/` | Preview compositions hooked into existing `remotion/Root.tsx` |
 
-These directories are documentation placeholders until real code exists. Do **not** register empty packages in a workspace build until they ship implementable sources.
+Further detail: [motion-runtime.md](motion-runtime.md), [motion-preview-harness.md](motion-preview-harness.md), [asset-manifest-v1.md](asset-manifest-v1.md).
 
 ## Nguyên tắc tích hợp
 

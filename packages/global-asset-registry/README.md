@@ -37,3 +37,4 @@ npm run verify:better-chat-cut-assets
 - Manifest files (`*.asset.json`) are the source of truth.
 - Search index is rebuilt on `refresh()` and is deterministic.
 - Schema docs: [docs/asset-manifest-v1.md](../../docs/asset-manifest-v1.md)
+- Motion runtime (separate package) consumes catalog metadata; see [docs/motion-runtime.md](../../docs/motion-runtime.md).

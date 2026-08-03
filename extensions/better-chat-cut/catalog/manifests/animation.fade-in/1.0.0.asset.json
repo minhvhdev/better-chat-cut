@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "animation.fade-in",
+  "version": "1.0.0",
+  "name": "Fade In",
+  "description": "Fade opacity from 0 to 1",
+  "kind": "animation",
+  "status": "published",
+  "categories": [
+    "motion"
+  ],
+  "tags": [
+    "animation"
+  ],
+  "aliases": [
+    "fade in"
+  ],
+  "capabilities": [
+    "animate"
+  ],
+  "styleTags": [
+    "flat-vector"
+  ],
+  "implementation": {
+    "type": "builtin",
+    "entry": "animations/fade-in.ts"
+  },
+  "license": {
+    "spdx": "AGPL-3.0-or-later",
+    "attribution": "Better Chat Cut contributors"
+  },
+  "provenance": {
+    "origin": "user"
+  }
+}

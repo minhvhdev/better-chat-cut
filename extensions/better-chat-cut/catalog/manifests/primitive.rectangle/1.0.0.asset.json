@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "primitive.rectangle",
+  "version": "1.0.0",
+  "name": "Rectangle",
+  "description": "Reusable rectangle primitive",
+  "kind": "primitive",
+  "status": "published",
+  "categories": [
+    "starter"
+  ],
+  "tags": [
+    "rectangle",
+    "shape"
+  ],
+  "aliases": [
+    "rectangle"
+  ],
+  "capabilities": [
+    "render",
+    "animate"
+  ],
+  "styleTags": [
+    "flat-vector"
+  ],
+  "implementation": {
+    "type": "react-component",
+    "entry": "components/primitives/Rectangle.tsx",
+    "exportName": "Rectangle"
+  },
+  "propsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "width": {
+        "type": "number"
+      },
+      "height": {
+        "type": "number"
+      },
+      "fill": {
+        "type": "string"
+      },
+      "cornerRadius": {
+        "type": "number"
+      }
+    }
+  },
+  "license": {
+    "spdx": "AGPL-3.0-or-later",
+    "attribution": "Better Chat Cut contributors"
+  },
+  "provenance": {
+    "origin": "user"
+  }
+}

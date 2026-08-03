@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "primitive.circle",
+  "version": "1.0.0",
+  "name": "Circle",
+  "description": "Reusable circle primitive",
+  "kind": "primitive",
+  "status": "published",
+  "categories": [
+    "starter"
+  ],
+  "tags": [
+    "circle",
+    "shape"
+  ],
+  "aliases": [
+    "circle"
+  ],
+  "capabilities": [
+    "render",
+    "animate"
+  ],
+  "styleTags": [
+    "flat-vector"
+  ],
+  "implementation": {
+    "type": "react-component",
+    "entry": "components/primitives/Circle.tsx",
+    "exportName": "Circle"
+  },
+  "propsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "radius": {
+        "type": "number"
+      },
+      "fill": {
+        "type": "string"
+      },
+      "stroke": {
+        "type": "string"
+      },
+      "strokeWidth": {
+        "type": "number"
+      }
+    }
+  },
+  "license": {
+    "spdx": "AGPL-3.0-or-later",
+    "attribution": "Better Chat Cut contributors"
+  },
+  "provenance": {
+    "origin": "user"
+  }
+}

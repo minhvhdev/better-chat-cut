@@ -12,21 +12,25 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 ## Milestone 1 — Asset Registry
 
-* Manifest schema. *(M1A done: `docs/asset-manifest-v1.md` + `packages/global-asset-registry`)*
-* Asset ID và version.
-* Category, tag và capability.
-* Preview. *(schema field only in M1A)*
-* Search cơ bản. *(M1A: deterministic metadata search + MCP `asset_search`)*
-* Asset lifecycle. *(statuses modeled; promotion commands are M1B)*
+* Manifest schema. *(M1A done)*
+* Asset ID và version. *(M1A)*
+* Category, tag và capability. *(M1A)*
+* Preview. *(schema + M2A Remotion harness)*
+* Search cơ bản. *(M1A: `asset_search`)*
+* Asset lifecycle. *(M1B: draft/update/transition MCP tools)*
 
 ## Milestone 2 — Motion Component Catalog
 
-* SVG/React component.
-* Design tokens.
-* Animation preset.
-* Background layer.
-* Scene template.
-* Preview component.
+* SVG/React component. *(M2A: primitives, background, label runtime)*
+* Design tokens. *(M2A themes)*
+* Animation preset. *(M2A fade/slide/pop/float/pulse)*
+* Background layer. *(M2A `background.solid`)*
+* Scene template. *(later)*
+* Preview component. *(M2A Remotion + MCP preview tools)*
+
+**M2A complete** when acceptance criteria pass. Full motion catalog is **not** claimed complete.
+
+**Next:** M2B — Agent-authored Motion Asset Source Pipeline (isolated user workspace, source creation, compile/register path).
 
 ## Milestone 3 — Asset Resolver
 
@@ -62,4 +66,4 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 ## Status
 
-Milestone 0 is the setup target for the current repository initialization. Later milestones must not be implemented until their design is approved and planned separately.
+M0, M1A, M1B, and M2A are implemented on `main`. Later milestones require separate design approval before implementation.

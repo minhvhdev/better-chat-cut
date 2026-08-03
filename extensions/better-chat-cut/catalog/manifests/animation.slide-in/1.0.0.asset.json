@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "animation.slide-in",
+  "version": "1.0.0",
+  "name": "Slide In",
+  "description": "Slide from left while fading in",
+  "kind": "animation",
+  "status": "published",
+  "categories": [
+    "motion"
+  ],
+  "tags": [
+    "animation"
+  ],
+  "aliases": [
+    "slide in"
+  ],
+  "capabilities": [
+    "animate"
+  ],
+  "styleTags": [
+    "flat-vector"
+  ],
+  "implementation": {
+    "type": "builtin",
+    "entry": "animations/slide-in.ts"
+  },
+  "license": {
+    "spdx": "AGPL-3.0-or-later",
+    "attribution": "Better Chat Cut contributors"
+  },
+  "provenance": {
+    "origin": "user"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "primitive.line",
+  "version": "1.0.0",
+  "name": "Line",
+  "description": "Reusable line primitive",
+  "kind": "primitive",
+  "status": "published",
+  "categories": [
+    "starter"
+  ],
+  "tags": [
+    "line"
+  ],
+  "aliases": [
+    "line"
+  ],
+  "capabilities": [
+    "render"
+  ],
+  "styleTags": [
+    "flat-vector"
+  ],
+  "implementation": {
+    "type": "react-component",
+    "entry": "components/primitives/Line.tsx",
+    "exportName": "Line"
+  },
+  "propsSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "length": {
+        "type": "number"
+      },
+      "stroke": {
+        "type": "string"
+      },
+      "strokeWidth": {
+        "type": "number"
+      }
+    }
+  },
+  "license": {
+    "spdx": "AGPL-3.0-or-later",
+    "attribution": "Better Chat Cut contributors"
+  },
+  "provenance": {
+    "origin": "user"
+  }
+}

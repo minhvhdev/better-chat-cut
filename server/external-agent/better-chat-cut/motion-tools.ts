@@ -8,7 +8,13 @@ import { inspectMotionAsset, renderMotionPreview } from '../../../packages/motio
 import {
   createGlobalAssetRegistry,
   resolveAssetCatalogRootDescriptors,
+  resolveWritableAssetCatalogRoot,
 } from '../../../packages/global-asset-registry/src/index.ts';
+import {
+  inspectCandidateAvailability,
+  refreshVerifiedUserMotionRuntimes,
+} from '../../../packages/motion-source-pipeline/src/index.ts';
+import type { GlobalAssetRegistryWithRecords } from '../../../packages/global-asset-registry/src/asset-registry.ts';
 
 ensureBetterChatCutMotionRuntime();
 
@@ -97,8 +103,24 @@ export async function runMotionTool(name: string, args: Record<string, unknown>)
   const version = typeof args.version === 'string' ? args.version : undefined;
 
   if (name === 'motion_asset_inspect') {
+    const registry = createGlobalAssetRegistry({
+      roots: resolveAssetCatalogRootDescriptors(),
+      strict: false,
+    }) as GlobalAssetRegistryWithRecords;
+    await registry.refresh();
+    await refreshVerifiedUserMotionRuntimes({
+      registry,
+      userCatalogRoot: resolveWritableAssetCatalogRoot().path,
+    });
+
     const runtime = inspectMotionAsset(assetId, version);
     const catalog = await catalogDetail(assetId, version);
+    const availability = inspectCandidateAvailability({
+      registry,
+      userCatalogRoot: resolveWritableAssetCatalogRoot().path,
+      assetId,
+      assetVersion: version ?? catalog.detail?.manifest.version,
+    });
     if (!runtime.asset && !catalog.detail) {
       return {
         catalogRevision: catalog.catalogRevision,
@@ -107,6 +129,9 @@ export async function runMotionTool(name: string, args: Record<string, unknown>)
         diagnostics: runtime.diagnostics,
       };
     }
+    const status = catalog.detail?.manifest.status ?? 'published';
+    const runtimeAvailable = Boolean(runtime.asset)
+      || (availability.runtimeAvailable && (status === 'staging' || status === 'published'));
     return {
       catalogRevision: catalog.catalogRevision,
       runtimeRevision: runtime.runtimeRevision,
@@ -116,9 +141,10 @@ export async function runMotionTool(name: string, args: Record<string, unknown>)
         name: catalog.detail?.manifest.name ?? runtime.asset?.name ?? assetId,
         description: catalog.detail?.manifest.description ?? runtime.asset?.description ?? '',
         kind: catalog.detail?.manifest.kind ?? runtime.asset?.kind ?? 'primitive',
-        status: catalog.detail?.manifest.status ?? 'published',
+        status,
         contentHash: catalog.detail?.contentHash,
-        runtimeAvailable: Boolean(runtime.asset),
+        runtimeAvailable,
+        candidateBuildAvailable: availability.candidateBuildAvailable,
         implementation: catalog.detail?.manifest.implementation ?? { type: 'react-component' },
         defaultProps: runtime.asset?.defaultProps,
         propsSchema: catalog.detail?.manifest.propsSchema ?? runtime.asset?.propsSchema,

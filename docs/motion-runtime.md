@@ -50,8 +50,9 @@ Remotion Root (BetterChatCutAssetPreview|Still|ContactSheet)
 
 ## Known limitations (M2A)
 
-- User catalog cannot inject new React implementations (planned for M2B)
 - Animation assets are presets, not timeline items
 - Full motion catalog (characters, scenes, templates) is out of scope
 
-See also: [motion-preview-harness.md](./motion-preview-harness.md)
+## M2B extension
+
+User catalog draft assets may supply restricted `index.tsx` source. Builds are immutable under `runtime/<buildHash>/`. Evaluation runs only in Remotion Chromium via `SandboxedUserMotion` (not Node `import()` / `node:vm`). See [motion-source-pipeline.md](./motion-source-pipeline.md).

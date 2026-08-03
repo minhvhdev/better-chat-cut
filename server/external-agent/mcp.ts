@@ -26,7 +26,9 @@ import {
 import { createExternalProject, listExternalProjects } from './projects.ts';
 import { ASSET_SEARCH_TOOL, CATALOG_TOOLS, runCatalogTool } from './better-chat-cut/asset-search.ts';
 import { MOTION_TOOLS, runMotionTool } from './better-chat-cut/motion-tools.ts';
+import { MOTION_SOURCE_TOOLS, runMotionSourceTool } from './better-chat-cut/motion-source-tools.ts';
 import { AssetRegistryError } from '../../packages/global-asset-registry/src/index.ts';
+import { MotionSourceError } from '../../packages/motion-source-pipeline/src/index.ts';
 
 export const OPENCHATCUT_SKILL_BASELINE = '2026-08-01.1';
 export const MCP_SESSION_IDLE_LIMIT_MS = 60 * 60 * 1000;
@@ -98,6 +100,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...MOTION_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...MOTION_SOURCE_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -275,6 +283,19 @@ async function callControlTool(
     try {
       return await runMotionTool(name, args);
     } catch (error) {
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (MOTION_SOURCE_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runMotionSourceTool(name, args);
+    } catch (error) {
+      if (error instanceof MotionSourceError) {
+        throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
+      }
       throw new ExternalEditorCallError(
         'failed',
         error instanceof Error ? error.message : String(error),

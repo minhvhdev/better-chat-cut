@@ -56,13 +56,15 @@ Better Chat Cut
 | `packages/global-asset-registry/` | Shared asset manifests, IDs, versions, lifecycle, deterministic search |
 | `packages/asset-resolver/` | Match requirements → reuse / variant / compose (planned) |
 | `packages/motion-components/` | Reusable SVG/React motion runtime + Remotion preview helpers (M2A) |
+| `packages/motion-authoring-sdk/` | Restricted authoring SDK for agent-written components (M2B) |
+| `packages/motion-source-pipeline/` | Source validate/build/candidate preview/prepare-staging (M2B) |
 | `packages/scene-templates/` | Scene composition templates (planned) |
 | `packages/better-chat-cut-mcp/` | Extra semantic MCP tools beyond thin adapters (planned) |
 | `extensions/better-chat-cut/` | Catalog manifests + thin integration glue |
 | `server/external-agent/better-chat-cut/` | MCP adapters (`asset_*`, `motion_asset_*`) |
 | `remotion/better-chat-cut/` | Preview compositions hooked into existing `remotion/Root.tsx` |
 
-Further detail: [motion-runtime.md](motion-runtime.md), [motion-preview-harness.md](motion-preview-harness.md), [asset-manifest-v1.md](asset-manifest-v1.md).
+Further detail: [motion-runtime.md](motion-runtime.md), [motion-preview-harness.md](motion-preview-harness.md), [motion-source-pipeline.md](motion-source-pipeline.md), [asset-manifest-v1.md](asset-manifest-v1.md).
 
 ## Nguyên tắc tích hợp
 

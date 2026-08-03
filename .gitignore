@@ -90,6 +90,9 @@ docs/*
 !docs/asset-manifest-v1.md
 !docs/motion-runtime.md
 !docs/motion-preview-harness.md
+!docs/motion-source-pipeline.md
+!docs/motion-authoring-sdk.md
+!docs/motion-source-security.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

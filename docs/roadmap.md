@@ -30,7 +30,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M2A complete** when acceptance criteria pass. Full motion catalog is **not** claimed complete.
 
-**Next:** M2B — Agent-authored Motion Asset Source Pipeline (isolated user workspace, source creation, compile/register path).
+**M2B complete** when restricted authoring SDK, source pipeline, Chromium sandbox preview, prepare-staging, and MCP tools pass verification.
+
+**Next:** M3A — Scene Graph Schema, Scene Runtime and Scene Preview
 
 ## Milestone 3 — Asset Resolver
 
@@ -66,4 +68,4 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 ## Status
 
-M0, M1A, M1B, and M2A are implemented on `main`. Later milestones require separate design approval before implementation.
+M0, M1A, M1B, M2A, and M2B are implemented on `main`. Later milestones require separate design approval before implementation.

@@ -34,16 +34,20 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M3A complete** when SceneDocumentV1, scene runtime evaluation, Remotion scene still/contact-sheet, and read-only `scene_*` MCP tools pass verification. M3A is **inline/read-only** only — no scene persistence or timeline integration.
 
-**Next:** M3B — Batch Asset Requirement Planner and Asset Resolver
+**M3B complete** when batch AssetRequirementSetV1 → AssetPlanV1 resolution (exact/reuse/variant/composition/duplicate guard/creation brief) and read-only `asset_resolve_*` MCP tools pass verification. M3B does **not** create assets, persist AssetPlans, or generate SceneDocuments.
+
+**Next:** M4A — Persistent Scene Drafts, AssetPlan-to-Scene Composition and Semantic Scene Patching
 
 ## Milestone 3 — Asset Resolver
 
-* Batch requirements. *(M3B planned)*
-* Reuse.
-* Variant.
-* Composition.
-* Similarity check.
-* Chống tạo asset trùng.
+* Batch requirements. *(M3B done)*
+* Reuse. *(M3B)*
+* Variant. *(M3B)*
+* Composition. *(M3B explicit parts only)*
+* Similarity check. *(M3B)*
+* Chống tạo asset trùng. *(M3B review-duplicate + creation brief)*
+
+Resolver does **not** auto-create assets. AssetPlan is **not** stored in projects yet.
 
 ## Milestone 3A — Scene Graph (done when criteria pass)
 
@@ -52,15 +56,31 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 * Remotion scene preview
 * MCP `scene_get_contract`, `scene_validate`, `scene_evaluate_frame`, `scene_render_preview`
 
+## Milestone 3B — Batch Asset Resolver (done when criteria pass)
+
+* AssetRequirementSetV1 + validation/hash
+* Deterministic candidate scoring + strategies
+* AssetPlanV1 + plan validation/staleness
+* MCP `asset_resolver_get_contract`, `asset_requirements_validate`, `asset_resolve_batch`, `asset_plan_validate`
+
 ## Milestone 4 — MCP Scene Tools
 
 * Catalog search.
-* Resolve asset.
-* Compose scene.
-* Patch scene.
+* Resolve asset. *(M3B batch resolver)*
+* Compose scene. *(M4A)*
+* Patch scene. *(M4A)*
 * Validate scene. *(basic validate in M3A)*
 * Render frame. *(M3A still)*
 * Render contact sheet. *(M3A)*
+
+## Milestone 4A — Persistent Scene Drafts (planned)
+
+* Scene draft store
+* Scene create/get/update
+* AssetPlan-to-Scene conversion
+* Semantic scene operations / patch validation
+* Preview-review-patch loop
+* Optimistic concurrency + undoable drafts
 
 ## Milestone 5 — Video Pipeline
 
@@ -77,4 +97,4 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 ## Status
 
-M0, M1A, M1B, M2A, M2B, and M3A are implemented on `main`. Later milestones require separate design approval before implementation.
+M0, M1A, M1B, M2A, M2B, M3A, and M3B are implemented on `main`. Later milestones require separate design approval before implementation. Better Chat Cut is **not** a complete product yet — scene persistence, timeline integration, and multi-scene video pipeline remain.

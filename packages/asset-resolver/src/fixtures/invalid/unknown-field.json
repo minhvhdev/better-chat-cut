@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "requirements.fixture-invalid-unknown",
+  "requirements": [
+    {
+      "id": "x",
+      "name": "X",
+      "description": "X",
+      "search": { "queries": ["x"] },
+      "unknownField": true
+    }
+  ]
+}

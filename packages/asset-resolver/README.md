@@ -1,11 +1,25 @@
 # @better-chat-cut/asset-resolver
 
-Resolves batch scene requirements to catalog assets: reuse, variant, composition, and similarity checks to avoid duplicate creation.
+Deterministic batch Asset Requirement Planner and Asset Resolver for Better Chat Cut.
 
 ## Status
 
-Placeholder only. Do not add this package to a workspace build until real sources exist.
+M3B implemented. Resolves `AssetRequirementSetV1` into pinned `AssetPlanV1` decisions.
 
-## Principle
+## Capabilities
 
-Agents must search and resolve before creating new assets.
+- Exact pin, reuse, variant (validated props), explicit composition
+- Cross-requirement `reuseKey` and greedy `distinctKey`
+- Similarity duplicate review before creation briefs
+- Deterministic scoring, tie-break, plan hash, resolver revision
+- Plan validation with stale-but-reusable catalog detection
+
+## Non-goals
+
+Does **not** create assets, write source, publish, generate SceneDocuments, render previews, or mutate projects/timelines.
+
+## Verify
+
+```bash
+npm run verify:better-chat-cut-asset-resolver
+```

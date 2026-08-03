@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "requirements.fixture-direct-arrow",
+  "name": "Direct arrow reuse",
+  "requirements": [
+    {
+      "id": "mainArrow",
+      "name": "Arrow",
+      "description": "Explanation arrow",
+      "search": { "queries": ["arrow"] },
+      "kinds": { "preferred": ["primitive"] },
+      "tags": ["arrow"]
+    }
+  ]
+}

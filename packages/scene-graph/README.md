@@ -16,7 +16,7 @@ Deterministic Scene Graph schema, runtime evaluation, and Remotion preview for B
 - No project/timeline persistence
 - No semantic scene patch
 - No draft candidate runtimes in normal scene rendering
-- No auto asset resolution
+- No auto asset resolution (use M3B `packages/asset-resolver` + MCP `asset_resolve_batch` instead)
 
 ## Verify
 

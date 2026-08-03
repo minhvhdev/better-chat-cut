@@ -96,6 +96,9 @@ docs/*
 !docs/scene-graph-v1.md
 !docs/scene-runtime.md
 !docs/scene-preview.md
+!docs/asset-requirements-v1.md
+!docs/asset-resolver.md
+!docs/asset-plan-v1.md
 
 # Keep local and temporary check scripts out of the repository; stable regressions use *.verify.* via npm test.
 *.check.ts

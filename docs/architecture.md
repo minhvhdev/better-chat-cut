@@ -54,7 +54,7 @@ Better Chat Cut
 | Package / area | Purpose |
 |---|---|
 | `packages/global-asset-registry/` | Shared asset manifests, IDs, versions, lifecycle, deterministic search |
-| `packages/asset-resolver/` | Match requirements → reuse / variant / compose (planned) |
+| `packages/asset-resolver/` | Batch AssetRequirementSet → AssetPlan (exact/reuse/variant/composition/duplicate guard) |
 | `packages/motion-components/` | Reusable SVG/React motion runtime + Remotion preview helpers (M2A) |
 | `packages/motion-authoring-sdk/` | Restricted authoring SDK for agent-written components (M2B) |
 | `packages/motion-source-pipeline/` | Source validate/build/candidate preview/prepare-staging (M2B) |

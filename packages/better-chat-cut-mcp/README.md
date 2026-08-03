@@ -4,12 +4,13 @@ Semantic MCP adapter for Cursor: catalog search, asset resolve, scene compose/pa
 
 ## Status
 
-Package folder remains a future home for thicker semantic facades. Through **M3A**, Better Chat Cut MCP tools ship as thin adapters on the existing OpenChatCut server:
+Package folder remains a future home for thicker semantic facades. Through **M3B**, Better Chat Cut MCP tools ship as thin adapters on the existing OpenChatCut server:
 
 - `server/external-agent/better-chat-cut/asset-search.ts` (and related catalog tools)
 - `server/external-agent/better-chat-cut/motion-tools.ts`
 - `server/external-agent/better-chat-cut/motion-source-tools.ts`
 - `server/external-agent/better-chat-cut/scene-tools.ts` (`scene_get_contract`, `scene_validate`, `scene_evaluate_frame`, `scene_render_preview`)
+- `server/external-agent/better-chat-cut/asset-resolver-tools.ts` (`asset_resolver_get_contract`, `asset_requirements_validate`, `asset_resolve_batch`, `asset_plan_validate`)
 
 Do not stand up a second MCP HTTP server.
 

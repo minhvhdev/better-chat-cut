@@ -61,8 +61,24 @@ export async function runQualificationCommand(
     const timer = setTimeout(() => {
       if (settled) return;
       console.error(`[qualification-command] timeout ${commandId}`);
-      child.kill('SIGTERM');
-      setTimeout(() => child.kill('SIGKILL'), 5_000).unref?.();
+      try {
+        child.kill('SIGTERM');
+      } catch { /* ignore */ }
+      setTimeout(() => {
+        try {
+          child.kill('SIGKILL');
+        } catch { /* ignore */ }
+        if (settled) return;
+        settled = true;
+        console.error(`[qualification-command] force-fail after timeout ${commandId}`);
+        resolve({
+          exitCode: 124,
+          stdoutSha256: digest(Buffer.concat(stdoutChunks)),
+          stderrSha256: digest(Buffer.concat(stderrChunks)),
+          startedAt,
+          completedAt: new Date().toISOString(),
+        });
+      }, 10_000).unref?.();
     }, timeoutMs);
 
     child.stdout?.on('data', (c: Buffer) => {

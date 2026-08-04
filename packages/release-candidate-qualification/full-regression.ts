@@ -61,7 +61,6 @@ const groups: Record<string, string[]> = {
     'verify:better-chat-cut-backup-restore:e2e',
     'verify:better-chat-cut-release-qualification',
     'verify:better-chat-cut-finalization:mcp',
-    'verify:better-chat-cut-m7b:e2e',
   ],
 };
 

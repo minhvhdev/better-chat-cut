@@ -167,8 +167,26 @@ async function boot(): Promise<void> {
       preload: PRELOAD_PATH,
       contextIsolation: true,
       nodeIntegration: false,
+      sandbox: true,
+      webSecurity: true,
+      allowRunningInsecureContent: false,
       spellcheck: false,
     },
+  });
+  // Deny permission requests by default (camera/mic/geolocation, etc.)
+  win.webContents.session.setPermissionRequestHandler((_wc, _permission, callback) => {
+    callback(false);
+  });
+  // External navigations leave the app window; OAuth stays in system browser.
+  win.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  win.webContents.on('will-navigate', (event, url) => {
+    try {
+      const next = new URL(url);
+      const current = new URL(origin);
+      if (next.origin !== current.origin) event.preventDefault();
+    } catch {
+      event.preventDefault();
+    }
   });
   await win.loadURL(`${origin}/`);
 

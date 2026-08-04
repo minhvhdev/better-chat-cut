@@ -33,15 +33,12 @@ function digest(text: string): string {
 
 async function walkFiles(root: string, relBase: string, out: string[], maxFiles: number): Promise<void> {
   if (out.length >= maxFiles || !existsSync(root)) return;
-  let entries: string[] = [];
+  let dirents;
   try {
-    entries = await readdir(root, { withFileTypes: true }).then((d) =>
-      d.map((x) => x.name),
-    );
+    dirents = await readdir(root, { withFileTypes: true });
   } catch {
     return;
   }
-  const dirents = await readdir(root, { withFileTypes: true });
   for (const d of dirents) {
     if (out.length >= maxFiles) return;
     const abs = join(root, d.name);

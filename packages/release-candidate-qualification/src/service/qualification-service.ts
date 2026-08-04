@@ -654,7 +654,6 @@ export function createQualificationService(
       }
 
       const candidateId = `rc.${plan.id}.${randomUUID().slice(0, 8)}`;
-      const hostPlatform = process.platform === 'darwin' ? 'macos' : process.platform === 'win32' ? 'windows' : 'linux';
       const targetResults = plan.targets.map((t) => {
         const art = distLoaded?.artifacts.find((a) => a.platform === t.platform && (!t.arch || a.arch === t.arch));
         return {

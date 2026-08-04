@@ -26,7 +26,7 @@ function recomputeFileSha256(buf: Buffer): string {
  * Load + validate distribution from store. Caller metadata is never trusted alone.
  */
 export async function loadAndValidateDistributionEvidence(
-  repoRoot: string,
+  _repoRoot: string,
   ref: DistributionEvidenceReferenceV1,
   options: {
     distributionRoot?: string;

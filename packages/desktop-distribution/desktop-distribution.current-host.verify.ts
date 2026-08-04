@@ -35,15 +35,43 @@ const script =
       ? (arch === 'arm64' ? 'desktop:dist' : 'desktop:dist:mac-x64')
       : 'desktop:dist:linux';
 
-console.log(`current-host package: running npm run ${script} (${platform}/${arch})`);
+console.log(`current-host package: host=${platform}/${arch} script=${script}`);
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-const run = spawnSync(npm, ['run', script], {
-  cwd: repoRoot,
-  env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: 'false' },
-  stdio: 'inherit',
-  shell: true,
-});
-assert.equal(run.status, 0, `desktop package script failed: ${script}`);
+const forceRebuild = process.env.BETTER_CHAT_CUT_FORCE_REBUILD === '1';
+const releaseDirProbe = join(repoRoot, 'release');
+let hasUsablePackage = false;
+if (!forceRebuild && existsSync(releaseDirProbe)) {
+  // Quick probe: non-stub installer already present from a prior successful build
+  const probe: string[] = [];
+  async function walkProbe(dir: string, depth: number): Promise<void> {
+    if (depth > 3) return;
+    for (const name of await readdir(dir, { withFileTypes: true })) {
+      const abs = join(dir, name.name);
+      if (name.isDirectory()) await walkProbe(abs, depth + 1);
+      else if (/\.(exe|dmg|AppImage)$/i.test(name.name)) probe.push(abs);
+    }
+  }
+  await walkProbe(releaseDirProbe, 0);
+  for (const p of probe) {
+    const head = await readFile(p);
+    if (head.byteLength > 1024 * 1024 && !head.toString('utf8', 0, 40).includes('DISTRIBUTION_STUB')) {
+      hasUsablePackage = true;
+      break;
+    }
+  }
+}
+
+if (hasUsablePackage) {
+  console.log('Reusing existing real package under release/ (set BETTER_CHAT_CUT_FORCE_REBUILD=1 to rebuild)');
+} else {
+  const run = spawnSync(npm, ['run', script], {
+    cwd: repoRoot,
+    env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: 'false' },
+    stdio: 'inherit',
+    shell: true,
+  });
+  assert.equal(run.status, 0, `desktop package script failed: ${script}`);
+}
 
 const releaseDir = join(repoRoot, 'release');
 assert.ok(existsSync(releaseDir), 'release/ output directory missing');

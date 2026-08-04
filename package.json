@@ -79,6 +79,7 @@
     "verify:better-chat-cut-regression:narration-render": "tsx packages/release-candidate-qualification/full-regression.ts narration-render",
     "verify:better-chat-cut-regression:orchestration-publishing": "tsx packages/release-candidate-qualification/full-regression.ts orchestration-publishing",
     "verify:better-chat-cut-regression:workspace-finalization": "tsx packages/release-candidate-qualification/full-regression.ts workspace-finalization",
+    "verify:better-chat-cut-regression:m7b-finalization": "tsx packages/release-candidate-qualification/full-regression.ts m7b-finalization",
     "verify:better-chat-cut-full-regression": "tsx packages/release-candidate-qualification/full-regression.ts",
     "verify:better-chat-cut-roadmap-closure": "tsx packages/release-candidate-qualification/roadmap-closure.gate.ts",
     "generate:better-chat-cut-previews": "tsx packages/motion-components/generate-previews.ts",

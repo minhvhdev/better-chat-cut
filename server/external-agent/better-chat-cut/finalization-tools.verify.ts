@@ -100,6 +100,13 @@ try {
   assert.equal(status.operation.status, 'completed');
   assert.ok(status.manifest?.manifestHash);
 
+  // Install a dedicated onboarding service used by subsequent MCP calls.
+  const onboard = createConnectionOnboardingService({
+    vault: createFakeCredentialVault(join(tmp, 'vault2')),
+    fakeProvider: true,
+  });
+  setFinalizationServicesForTests({ onboarding: onboard });
+
   const session = await runFinalizationControlTool('connection_onboarding_begin', {
     requestId: 'o1',
     openBrowser: false,
@@ -110,29 +117,15 @@ try {
       requestedScopes: ['https://www.googleapis.com/auth/youtube.upload'],
     },
   }) as { sessionId: string };
-  // Complete fake via service test-level is not exposed; begin+status is enough for MCP surface.
-  // Validate status tool:
   const st = await runFinalizationControlTool('connection_onboarding_status', {
     sessionId: session.sessionId,
   });
   assert.ok(st);
-
-  // Use onboarding service complete through test set - create another begin and complete via package
-  const onboard = createConnectionOnboardingService({
-    vault: createFakeCredentialVault(join(tmp, 'vault2')),
-    fakeProvider: true,
-  });
-  setFinalizationServicesForTests({ onboarding: onboard });
-  const s2 = await onboard.begin('r2', {
-    schemaVersion: '1.0.0',
-    platform: 'youtube',
-    connectionId: 'c2',
-    requestedScopes: ['https://www.googleapis.com/auth/youtube.upload'],
-  });
-  await onboard.completeFake(s2.sessionId);
+  // completeFake closes loopback — critical: open oauth listeners hang Windows process exit
+  await onboard.completeFake(session.sessionId);
   const disc = await runFinalizationControlTool('connection_onboarding_disconnect', {
     requestId: 'd1',
-    connectionId: 'c2',
+    connectionId: 'conn.mcp',
     dryRun: false,
   }) as { disconnected: boolean };
   assert.equal(disc.disconnected, true);
@@ -185,3 +178,4 @@ try {
 }
 
 console.log('finalization-tools: ok');
+process.exit(0);

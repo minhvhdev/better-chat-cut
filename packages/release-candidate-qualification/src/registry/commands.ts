@@ -85,8 +85,8 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   },
   'm7b-regression': {
     id: 'm7b-regression',
-    npmScript: 'verify:better-chat-cut-m7b:e2e',
-    timeoutMs: 600_000,
+    npmScript: 'verify:better-chat-cut-regression:m7b-finalization',
+    timeoutMs: 1_800_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,

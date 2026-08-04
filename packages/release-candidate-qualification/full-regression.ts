@@ -1,8 +1,16 @@
 /**
  * Deterministic full regression groups M1A–M7B (fail-fast).
- * Usage: tsx packages/release-candidate-qualification/full-regression.ts [group]
+ * Avoids `npm run` + shell nesting on Windows (esbuild service handles can hang spawnSync forever).
  */
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const repoRoot = process.cwd();
+const require = createRequire(join(repoRoot, 'package.json'));
+const tsxCli = require.resolve('tsx/cli');
 
 const groups: Record<string, string[]> = {
   'assets-motion': [
@@ -52,6 +60,8 @@ const groups: Record<string, string[]> = {
     'verify:better-chat-cut-workspace:mcp',
     'verify:better-chat-cut-workspace:e2e',
     'verify:better-chat-cut-workspace:desktop',
+  ],
+  'm7b-finalization': [
     'verify:better-chat-cut-distribution-contracts',
     'verify:better-chat-cut-desktop-distribution',
     'verify:better-chat-cut-desktop-security',
@@ -61,6 +71,7 @@ const groups: Record<string, string[]> = {
     'verify:better-chat-cut-backup-restore:e2e',
     'verify:better-chat-cut-release-qualification',
     'verify:better-chat-cut-finalization:mcp',
+    'verify:better-chat-cut-m7b:e2e',
   ],
 };
 
@@ -71,22 +82,50 @@ const order = [
   'narration-render',
   'orchestration-publishing',
   'workspace-finalization',
+  'm7b-finalization',
 ] as const;
 
-const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-const only = process.argv[2];
+const pkg = JSON.parse(readFileSync(join(repoRoot, 'package.json'), 'utf8')) as {
+  scripts?: Record<string, string>;
+};
 
 function runScript(script: string): void {
-  console.log(`\n>>> npm run ${script}`);
-  const r = spawnSync(npm, ['run', script], {
-    cwd: process.cwd(),
-    stdio: 'inherit',
-    shell: true,
-    env: process.env,
-    // Windows can leave handles open; force hard timeout per child as a backstop
-    timeout: 1_200_000,
-    killSignal: 'SIGTERM',
-  });
+  console.log(`\n>>> ${script}`);
+  const raw = pkg.scripts?.[script];
+  if (!raw) {
+    console.error(`Unknown script: ${script}`);
+    process.exit(2);
+  }
+
+  // Prefer direct `tsx file.ts` invocations over `npm run` (avoids Windows handle hangs).
+  const parts = raw.trim().split(/\s+/);
+  let r: ReturnType<typeof spawnSync>;
+  if (parts[0] === 'tsx' && parts.length >= 2) {
+    r = spawnSync(process.execPath, [tsxCli, ...parts.slice(1)], {
+      cwd: repoRoot,
+      stdio: 'inherit',
+      env: process.env,
+      windowsHide: true,
+    });
+  } else if (parts[0] === 'npx' && parts[1] === 'tsx') {
+    r = spawnSync(process.execPath, [tsxCli, ...parts.slice(2)], {
+      cwd: repoRoot,
+      stdio: 'inherit',
+      env: process.env,
+      windowsHide: true,
+    });
+  } else {
+    // Shell fallback for composite scripts (&& chains)
+    const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+    r = spawnSync(npm, ['run', script], {
+      cwd: repoRoot,
+      stdio: 'inherit',
+      shell: true,
+      env: process.env,
+      windowsHide: true,
+    });
+  }
+
   if (r.error) {
     console.error(`FAIL: ${script} error ${r.error.message}`);
     process.exit(1);
@@ -97,9 +136,8 @@ function runScript(script: string): void {
   }
 }
 
-const selected = only
-  ? [only]
-  : [...order];
+const only = process.argv[2];
+const selected = only ? [only] : [...order];
 
 for (const g of selected) {
   const scripts = groups[g];
@@ -113,5 +151,4 @@ for (const g of selected) {
 }
 
 console.log('\nfull-regression: ok');
-// Explicit exit so nested spawns cannot keep the process alive on Windows
 process.exit(0);

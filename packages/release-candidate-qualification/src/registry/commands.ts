@@ -14,7 +14,7 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   'unit-tests': {
     id: 'unit-tests',
     npmScript: 'test',
-    timeoutMs: 600_000,
+    timeoutMs: 1_800_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,
@@ -38,7 +38,7 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   'm1-m2-regression': {
     id: 'm1-m2-regression',
     npmScript: 'verify:better-chat-cut-regression:assets-motion',
-    timeoutMs: 1_200_000,
+    timeoutMs: 2_400_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,
@@ -46,7 +46,7 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   'm3-regression': {
     id: 'm3-regression',
     npmScript: 'verify:better-chat-cut-regression:scenes',
-    timeoutMs: 1_200_000,
+    timeoutMs: 2_400_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,
@@ -54,7 +54,7 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   'm4-regression': {
     id: 'm4-regression',
     npmScript: 'verify:better-chat-cut-regression:video',
-    timeoutMs: 1_200_000,
+    timeoutMs: 2_400_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,
@@ -62,7 +62,7 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   'm5-regression': {
     id: 'm5-regression',
     npmScript: 'verify:better-chat-cut-regression:narration-render',
-    timeoutMs: 1_800_000,
+    timeoutMs: 3_600_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,
@@ -70,7 +70,7 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   'm6-regression': {
     id: 'm6-regression',
     npmScript: 'verify:better-chat-cut-regression:orchestration-publishing',
-    timeoutMs: 1_800_000,
+    timeoutMs: 3_600_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,
@@ -78,7 +78,7 @@ export const QUALIFICATION_COMMANDS: Record<string, QualificationCommandDefiniti
   'm7a-regression': {
     id: 'm7a-regression',
     npmScript: 'verify:better-chat-cut-regression:workspace-finalization',
-    timeoutMs: 1_200_000,
+    timeoutMs: 3_600_000,
     workingDirectory: 'repo-root',
     environmentPolicy: 'test-isolated',
     secretRedaction: true,

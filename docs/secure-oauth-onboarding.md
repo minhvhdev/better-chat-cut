@@ -1,23 +1,13 @@
-# Secure OAuth onboarding (M7B)
+# Secure OAuth onboarding (Better Chat Cut)
 
-YouTube / Google OAuth for publishing connections.
+YouTube (and similar) connections use:
 
-## Flow
+- External system browser (not embedded WebView login)
+- Loopback redirect receiver
+- PKCE + state anti-replay
+- AES-256-GCM encrypted credential vault at rest
+- MCP/status tools never return access/refresh tokens or verifiers
 
-1. UI or MCP starts onboarding with opaque `connectionId`.
-2. Server generates `state` + PKCE verifier/challenge.
-3. Loopback callback binds **127.0.0.1 only**.
-4. Authorization URL targets system browser (not the privileged Electron renderer).
-5. Callback validates state (replay rejected).
-6. Authorization code exchanged **server-side**.
-7. Tokens stored in AES-256-GCM vault; UI/MCP receive metadata only.
+Live Google OAuth is not required for default verification; host tests use fake provider paths that still exercise vault encryption and secrecy.
 
-## Security
-
-- No tokens in renderer, MCP responses, logs, or diagnostics.
-- Scope allowlist enforced; arbitrary scopes rejected.
-- Disconnect supports dry-run (default) and revoke metadata.
-
-## Dev
-
-Fake provider is default. Set `BETTER_CHAT_CUT_ENABLE_YOUTUBE_OAUTH_SMOKE=1` and client credentials for live smoke.
+Desktop-oriented checks: `npm run verify:better-chat-cut-connection-onboarding:desktop`

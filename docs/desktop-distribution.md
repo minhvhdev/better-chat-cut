@@ -1,29 +1,15 @@
-# Desktop distribution (M7B)
+# Desktop distribution (Better Chat Cut M7B / M7B.1)
 
-Better Chat Cut builds installers through the existing Electron / electron-builder pipeline (`desktop/*`, `electron-builder.config.mjs`, `desktop:dist*`).
+Desktop packaging reuses the existing Electron + electron-builder pipeline (`desktop:dist*`).
 
-## Plans
+Better Chat Cut adds:
 
-`DesktopDistributionPlanV1` records source commit, clean-tree policy, app version, package-lock and builder-config SHA-256, targets, signing **profile references only**, and update policy.
+- Distribution contracts (`packages/desktop-distribution-contracts`)
+- Distribution plan/build operations (`packages/desktop-distribution`)
+- Stub/dry-run artifacts for development planning only (marked `buildMode=stub`, `dryRun=true`, `stub=true`)
+- Real current-host packages via `npm run verify:better-chat-cut-desktop-distribution:current-host` (`buildMode=real`, `dryRun=false`, `stub=false`)
+- Launch smoke via `npm run verify:better-chat-cut-desktop-distribution:smoke`
 
-## Targets
+Roadmap closure **rejects** stub/dry-run packages as target evidence.
 
-| Platform | Arch | Format (repo default) |
-|----------|------|------------------------|
-| macOS | arm64, x64 | dmg |
-| Windows | x64 | nsis |
-| Linux | x64 | AppImage |
-
-Local builds only claim the host/os-arch; cross-platform success is CI-only.
-
-## Signing
-
-Modes: `unsigned` | `sign-when-configured` | `require-signed`. Credentials come from external env (`CSC_LINK`, `CSC_NAME`, Apple notarization vars). Never stored in git or manifests.
-
-## Update policy
-
-`disabled` or `manual-download`. Automatic download/install are explicitly **false**. No update server in M7B.
-
-## Data root
-
-`BETTER_CHAT_CUT_DISTRIBUTION_ROOT` (default `~/.openchatcut/better-chat-cut/distributions`).
+Automatic updates are **not** implemented. See [manual-update-policy.md](manual-update-policy.md).

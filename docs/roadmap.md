@@ -54,7 +54,9 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M7B complete** when desktop distribution plans/manifests, secure OAuth + encrypted vault, workspace backup/restore, release-candidate qualification + roadmap closure gate, nineteen finalization MCP tools, UI surfaces, and verification pass. Automatic updater, multi-platform publishing, cloud backup, and team accounts remain **optional future work**, not required milestones.
 
-**Current roadmap required milestones:** M0?M7B (M7B is the final required gate).
+**M7B.1** hardens the closure gate: immutable evidence, no forcePass overrides, real current-host desktop package evidence, full regression groups, stub rejection. Roadmap closes only when `roadmapClosed: true` is computed from validated evidence on a clean pushed commit.
+
+**Current roadmap required milestones:** M0?M7B (with M7B.1 evidence gate as the final closure authority).
 
 ## Milestone 3 ? Asset Resolver
 

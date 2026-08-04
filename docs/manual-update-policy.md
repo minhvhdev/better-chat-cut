@@ -1,7 +1,10 @@
-# Manual update policy (M7B)
+# Manual update policy
 
-Better Chat Cut does **not** auto-download or auto-install desktop updates.
+Better Chat Cut desktop updates are **manual download only**.
 
-Operators download artifacts from a trusted channel, verify SHA-256 against the distribution / release-candidate manifest, then install manually.
+- Automatic download: disabled
+- Automatic install: disabled
+- Release feed auto-updater: not configured
+- Users install new versions by downloading packages from the trust channel they choose
 
-`releaseFeedConfigured`, `automaticDownload`, and `automaticInstall` are fixed `false`.
+There is **no** silent auto-update channel in scope for M7B / M7B.1.

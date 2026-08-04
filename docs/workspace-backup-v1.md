@@ -1,10 +1,13 @@
-# Workspace backup bundle v1 (M7B)
-
-`PortableBackupBundleV1` under `BETTER_CHAT_CUT_BACKUP_ROOT`.
+# Workspace backup / restore v1
 
 Profiles:
 
-- `workflows-only` — projects, assets, drafts, production/publishing runs, deliveries, preferences, connection **metadata** (reauth marker)
-- `complete-local-workspace` — includes media blobs
+- `workflows-only` — production/publishing run stores without media bulk
+- `complete-local-workspace` — projects, media references, runs, bundles
 
-Always excludes OAuth tokens. Manifest lists logical paths (`logical://…`) and SHA-256 per file.
+Restore requires explicit destructive confirmation. Credentials are excluded from backups; connections mark reauthentication-required after restore. Manifests use logical paths (no absolute host paths).
+
+Verify:
+
+- `npm run verify:better-chat-cut-backup-restore`
+- `npm run verify:better-chat-cut-backup-restore:e2e`

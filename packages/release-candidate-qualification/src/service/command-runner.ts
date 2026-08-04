@@ -27,6 +27,7 @@ export async function runQualificationCommand(
   }
   const timeoutMs = options.timeoutMs ?? definition.timeoutMs;
   const startedAt = new Date().toISOString();
+  console.error(`[qualification-command] start ${commandId} timeoutMs=${timeoutMs}`);
 
   let executable: string;
   let args: string[];
@@ -48,35 +49,37 @@ export async function runQualificationCommand(
       cwd: repoRoot,
       env: {
         ...process.env,
-        // Never force product pass flags in environment.
         FORCE_COLOR: '0',
       },
       shell: process.platform === 'win32',
       windowsHide: true,
+      stdio: ['ignore', 'pipe', 'pipe'],
     });
     const stdoutChunks: Buffer[] = [];
     const stderrChunks: Buffer[] = [];
     let settled = false;
     const timer = setTimeout(() => {
       if (settled) return;
+      console.error(`[qualification-command] timeout ${commandId}`);
       child.kill('SIGTERM');
       setTimeout(() => child.kill('SIGKILL'), 5_000).unref?.();
     }, timeoutMs);
 
     child.stdout?.on('data', (c: Buffer) => {
       stdoutChunks.push(Buffer.from(c));
-      // Cap capture at ~2MB for hash correctness on head+tail would be better;
-      // hash full buffered up to limit then mark truncated.
+      process.stdout.write(c);
       if (Buffer.concat(stdoutChunks).byteLength > 2_000_000) stdoutChunks.splice(0, stdoutChunks.length - 20);
     });
     child.stderr?.on('data', (c: Buffer) => {
       stderrChunks.push(Buffer.from(c));
+      process.stderr.write(c);
       if (Buffer.concat(stderrChunks).byteLength > 2_000_000) stderrChunks.splice(0, stderrChunks.length - 20);
     });
     child.on('error', () => {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      console.error(`[qualification-command] error ${commandId}`);
       resolve({
         exitCode: 1,
         stdoutSha256: digest(Buffer.concat(stdoutChunks)),
@@ -89,6 +92,7 @@ export async function runQualificationCommand(
       if (settled) return;
       settled = true;
       clearTimeout(timer);
+      console.error(`[qualification-command] done ${commandId} exit=${code ?? 1}`);
       resolve({
         exitCode: code ?? 1,
         stdoutSha256: digest(Buffer.concat(stdoutChunks)),

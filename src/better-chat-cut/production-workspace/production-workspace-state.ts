@@ -6,6 +6,10 @@ export type WorkspacePageId =
   | 'operations'
   | 'deliveries'
   | 'health'
+  | 'distribution'
+  | 'backup'
+  | 'connections'
+  | 'qualification'
   | 'settings';
 
 export type WorkspaceRoute =
@@ -16,6 +20,10 @@ export type WorkspaceRoute =
   | { page: 'operations' }
   | { page: 'deliveries' }
   | { page: 'health' }
+  | { page: 'distribution' }
+  | { page: 'backup' }
+  | { page: 'connections' }
+  | { page: 'qualification' }
   | { page: 'settings' };
 
 export function parseWorkspaceHash(hash: string): WorkspaceRoute {
@@ -31,6 +39,10 @@ export function parseWorkspaceHash(hash: string): WorkspaceRoute {
   if (page === 'operations') return { page: 'operations' };
   if (page === 'deliveries') return { page: 'deliveries' };
   if (page === 'health') return { page: 'health' };
+  if (page === 'distribution') return { page: 'distribution' };
+  if (page === 'backup') return { page: 'backup' };
+  if (page === 'connections') return { page: 'connections' };
+  if (page === 'qualification') return { page: 'qualification' };
   if (page === 'settings') return { page: 'settings' };
   return { page: 'overview' };
 }
@@ -53,6 +65,14 @@ export function workspaceHash(route: WorkspaceRoute): string {
       return '#/production-workspace/deliveries';
     case 'health':
       return '#/production-workspace/health';
+    case 'distribution':
+      return '#/production-workspace/distribution';
+    case 'backup':
+      return '#/production-workspace/backup';
+    case 'connections':
+      return '#/production-workspace/connections';
+    case 'qualification':
+      return '#/production-workspace/qualification';
     case 'settings':
       return '#/production-workspace/settings';
     default:

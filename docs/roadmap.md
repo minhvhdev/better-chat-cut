@@ -52,9 +52,11 @@ This roadmap tracks fork-specific milestones. Upstream OpenChatCut features cont
 
 **M7A complete** when Production Workspace UI, human review surfaces, health/migration/diagnostics, same-origin workspace APIs, eight `workspace_*` MCP tools, and web/desktop verification pass. M7A does **not** add signed installers, OAuth onboarding wizard, backup/restore, multi-platform publish, or team collaboration.
 
-**Next:** M7B — Desktop Distribution, OAuth Onboarding, Backup/Restore and Release Candidate Qualification
+**M7B complete** when desktop distribution plans/manifests, secure OAuth + encrypted vault, workspace backup/restore, release-candidate qualification + roadmap closure gate, nineteen finalization MCP tools, UI surfaces, and verification pass. Automatic updater, multi-platform publishing, cloud backup, and team accounts remain **optional future work**, not required milestones.
 
-## Milestone 3 â€” Asset Resolver
+**Current roadmap required milestones:** M0?M7B (M7B is the final required gate).
+
+## Milestone 3 ? Asset Resolver
 
 * Batch requirements. *(M3B done)*
 * Reuse. *(M3B)*

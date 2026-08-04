@@ -32,4 +32,6 @@ Explicit `WorkspaceCommandV1` types only (create/put/execute/review/resume/cance
 
 ## Known limitations
 
-No AI generation, multi-platform publish, team accounts, signed installers, auto-updater, backup wizard, or cloud sync (see M7B).
+No AI generation, multi-platform publish, team accounts, automatic updater, or cloud sync.
+
+M7B adds distribution, OAuth onboarding, backup/restore, and release-candidate qualification inside this shell (Distribution / Backup / Connections / Qualification nav).

@@ -1,17 +1,17 @@
 # Production Workspace desktop
 
-Web (Vite) and Electron embedded server share plugin assembly (`server/plugins/index.ts`), including workspace HTTP APIs.
+Web (Vite) and Electron embedded server share plugin assembly (`server/plugins/index.ts`), including workspace + M7B finalization HTTP APIs.
 
 ## Verified
 
 - `desktop:build:main` builds main/preload
 - Hash navigation to `#/production-workspace`
-- Same same-origin workspace API on desktop host when embedded server mounts plugins
+- BrowserWindow hardening: contextIsolation, no nodeIntegration, webSecurity, permission deny-by-default
+- Same-origin workspace / distribution / backup / OAuth APIs on embedded desktop host
 
-## Not in M7A
+## M7B packaging
 
-Signed installers, notarization, auto-update, full RC smoke matrix (M7B).
-
-## Restart
-
-Reload workspace after app restart; runs resume from durable production/publishing stores via orchestrators.
+- Plans and checksum manifests via distribution service
+- Real installers via `desktop:dist*` and CI matrix (`.github/workflows/desktop.yml`)
+- Signing/notarization when external secrets configured; otherwise truthful `not-configured`
+- Update policy is manual only (no auto-updater)

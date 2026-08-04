@@ -55,7 +55,15 @@ import {
   WORKSPACE_CONTROL_TOOLS,
   runWorkspaceControlTool,
 } from './better-chat-cut/workspace-tools.ts';
+import {
+  FINALIZATION_CONTROL_TOOLS,
+  runFinalizationControlTool,
+} from './better-chat-cut/finalization-tools.ts';
 import { WorkspaceError } from '../../packages/production-workspace-contracts/src/index.ts';
+import { DistributionError } from '../../packages/desktop-distribution-contracts/src/index.ts';
+import { OnboardingError } from '../../packages/secure-connection-onboarding/src/index.ts';
+import { BackupError } from '../../packages/workspace-backup-restore/src/index.ts';
+import { QualificationError } from '../../packages/release-candidate-qualification/src/index.ts';
 import { SceneDraftError } from '../../packages/scene-drafts/src/index.ts';
 import { SceneClipError } from '../../packages/project-scene-bindings/src/index.ts';
 import { VideoPlanError } from '../../packages/video-plans/src/contracts/video-plan-errors.ts';
@@ -205,6 +213,12 @@ const CONTROL_TOOLS: Tool[] = [
     annotations: tool.annotations,
   })),
   ...WORKSPACE_CONTROL_TOOLS.map((tool) => ({
+    name: tool.name,
+    description: tool.description,
+    inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
+    annotations: tool.annotations,
+  })),
+  ...FINALIZATION_CONTROL_TOOLS.map((tool) => ({
     name: tool.name,
     description: tool.description,
     inputSchema: tool.inputSchema as unknown as Tool['inputSchema'],
@@ -523,6 +537,24 @@ async function callControlTool(
       return await runWorkspaceControlTool(name, args);
     } catch (error) {
       if (error instanceof WorkspaceError) {
+        throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
+      }
+      throw new ExternalEditorCallError(
+        'failed',
+        error instanceof Error ? error.message : String(error),
+      );
+    }
+  }
+  if (FINALIZATION_CONTROL_TOOLS.some((tool) => tool.name === name)) {
+    try {
+      return await runFinalizationControlTool(name, args);
+    } catch (error) {
+      if (
+        error instanceof DistributionError
+        || error instanceof OnboardingError
+        || error instanceof BackupError
+        || error instanceof QualificationError
+      ) {
         throw new ExternalEditorCallError('rejected', `${error.code}: ${error.message}`);
       }
       throw new ExternalEditorCallError(

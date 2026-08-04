@@ -22,6 +22,12 @@ import {
   ReviewDecisionPanel,
   RecoveryActions,
 } from './components/shared.tsx';
+import {
+  DistributionOverview,
+  ConnectionOnboardingPage,
+  BackupRestorePage,
+  ReleaseCandidatePanel,
+} from './m7b-panels.tsx';
 import type {
   WorkspaceOverviewV1,
   WorkspaceRunDetailV1,
@@ -70,6 +76,10 @@ function WorkspaceShell({
     { page: 'reviews', label: 'Reviews' },
     { page: 'operations', label: 'Operations' },
     { page: 'deliveries', label: 'Deliveries' },
+    { page: 'distribution', label: 'Distribution' },
+    { page: 'backup', label: 'Backup' },
+    { page: 'connections', label: 'Connections' },
+    { page: 'qualification', label: 'Qualification' },
     { page: 'health', label: 'Health' },
     { page: 'settings', label: 'Settings' },
   ];
@@ -80,7 +90,7 @@ function WorkspaceShell({
           ← Projects
         </button>
         <strong>Production Workspace</strong>
-        <span className="bcc-ws-muted">Better Chat Cut · M7A</span>
+        <span className="bcc-ws-muted">Better Chat Cut · M7B</span>
       </header>
       <div className="bcc-ws-layout">
         <nav className="bcc-ws-sidebar" aria-label="Workspace sections">
@@ -921,12 +931,20 @@ export default function ProductionWorkspace({
         )}
       </div>
     );
+  } else if (route.page === 'distribution') {
+    body = <DistributionOverview />;
+  } else if (route.page === 'backup') {
+    body = <BackupRestorePage />;
+  } else if (route.page === 'connections') {
+    body = <ConnectionOnboardingPage />;
+  } else if (route.page === 'qualification') {
+    body = <ReleaseCandidatePanel />;
   } else if (route.page === 'settings') {
     body = (
       <div>
         <h1 style={{ marginTop: 0, fontSize: 20 }}>Workspace settings</h1>
         <p className="bcc-ws-muted">
-          UI preferences only — never credentials. Publishing connections use opaque IDs and existing settings/keystore.
+          UI preferences only — never credentials. OAuth uses external browser + encrypted vault (Connections).
         </p>
         <label className="bcc-ws-muted" style={{ display: 'block', marginBottom: 8 }}>
           <input

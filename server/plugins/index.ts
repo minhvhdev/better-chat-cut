@@ -10,6 +10,7 @@ import { exportPlugin } from "./export.ts";
 import { exportQaPlugin } from "./export-qa.ts";
 import { betterChatCutDeliveriesPlugin } from "./better-chat-cut-deliveries.ts";
 import { betterChatCutWorkspacePlugin } from "./better-chat-cut-workspace.ts";
+import { betterChatCutFinalizationPlugin } from "./better-chat-cut-finalization.ts";
 import { exportDestinationPlugin } from "./export-destination.ts";
 import { exportStagePlugin } from "./export-stage.ts";
 import { uploadPlugin } from "./upload.ts";
@@ -59,6 +60,7 @@ export function serverPlugins(): Plugin[] {
     exportQaPlugin(),
     betterChatCutDeliveriesPlugin(),
     betterChatCutWorkspacePlugin(),
+    betterChatCutFinalizationPlugin(),
     uploadMultipartPlugin(),
     uploadPlugin(),
     mobileUploadPlugin(),

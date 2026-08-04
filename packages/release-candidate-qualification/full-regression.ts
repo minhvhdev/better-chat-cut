@@ -83,7 +83,14 @@ function runScript(script: string): void {
     stdio: 'inherit',
     shell: true,
     env: process.env,
+    // Windows can leave handles open; force hard timeout per child as a backstop
+    timeout: 1_200_000,
+    killSignal: 'SIGTERM',
   });
+  if (r.error) {
+    console.error(`FAIL: ${script} error ${r.error.message}`);
+    process.exit(1);
+  }
   if (r.status !== 0) {
     console.error(`FAIL: ${script} exit ${r.status}`);
     process.exit(r.status ?? 1);
@@ -102,6 +109,9 @@ for (const g of selected) {
   }
   console.log(`\n==== GROUP ${g} ====`);
   for (const s of scripts) runScript(s);
+  console.log(`==== GROUP ${g} done ====`);
 }
 
 console.log('\nfull-regression: ok');
+// Explicit exit so nested spawns cannot keep the process alive on Windows
+process.exit(0);

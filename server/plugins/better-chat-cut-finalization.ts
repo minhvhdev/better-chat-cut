@@ -195,10 +195,16 @@ async function handle(
         return;
       }
       if (method === 'POST' && path === '/validate') {
-        const body = await readBody(req) as { plan?: never; distributionArtifacts?: never };
+        const body = await readBody(req) as {
+          plan?: never;
+          distributionEvidence?: never;
+          profile?: never;
+          executeCommands?: boolean;
+        };
         sendJson(res, 200, await qual.validate(body.plan as never, {
-          distributionArtifacts: body.distributionArtifacts as never,
-          forcePassLocalChecks: true,
+          distributionEvidence: body.distributionEvidence as never,
+          profile: body.profile as never,
+          executeCommands: body.executeCommands === true,
         }));
         return;
       }

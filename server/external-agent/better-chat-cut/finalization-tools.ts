@@ -308,13 +308,27 @@ export const FINALIZATION_CONTROL_TOOLS = [
   },
   {
     name: 'release_candidate_validate',
-    description: 'Run qualification checks; produce report, optional manifest, and roadmap closure gate. No override for failed required checks.',
+    description: 'Run qualification checks with immutable evidence; produce report, optional manifest, and roadmap closure gate. No forcePass overrides. Prefer distributionEvidence reference over caller artifact metadata.',
     inputSchema: {
       type: 'object',
       additionalProperties: false,
       properties: {
         plan: { type: 'object' },
-        distributionArtifacts: { type: 'array' },
+        profile: {
+          type: 'string',
+          enum: ['internal-development', 'roadmap-closure', 'production-release'],
+        },
+        distributionEvidence: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            distributionId: { type: 'string' },
+            distributionManifestHash: { type: 'string' },
+            operationId: { type: 'string' },
+          },
+          required: ['distributionId', 'distributionManifestHash'],
+        },
+        executeCommands: { type: 'boolean' },
       },
       required: ['plan'],
     },
@@ -405,8 +419,9 @@ export async function runFinalizationControlTool(
         return await getQual().preparePlan(args as never);
       case 'release_candidate_validate':
         return await getQual().validate(args.plan as never, {
-          distributionArtifacts: args.distributionArtifacts as never,
-          forcePassLocalChecks: true,
+          profile: args.profile as never,
+          executeCommands: args.executeCommands === true,
+          distributionEvidence: args.distributionEvidence as never,
         });
       default:
         throw new Error(`Unknown finalization tool: ${name}`);

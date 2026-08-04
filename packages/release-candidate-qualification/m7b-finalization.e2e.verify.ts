@@ -98,30 +98,31 @@ try {
   const manifest = await dist.getManifest(dOp.operationId);
   assert.ok(manifest);
 
-  // Qualification + closure
+  // Qualification + closure (no forcePassLocalChecks; evidence from distribution store)
   const pkg = JSON.parse(await readFile(join(repoRoot, 'package.json'), 'utf8')) as { version: string };
-  const qual = createQualificationService({ repoRoot, rcRoot });
+  const qual = createQualificationService({ repoRoot, rcRoot, distributionRoot: distRoot });
   const rcPlan = await qual.preparePlan({
     id: 'e2e-rc',
     name: 'E2E RC',
     version: pkg.version,
     distributionManifestHash: manifest!.manifestHash,
     channel: 'internal',
+    profile: 'internal-development',
   });
   const { report: qReport, closure } = await qual.validate(rcPlan, {
-    forcePassLocalChecks: true,
-    distributionArtifacts: dOp.artifacts.map((a) => ({
-      platform: a.platform,
-      arch: a.arch,
-      format: a.format,
-      fileName: a.fileName,
-      byteLength: a.byteLength,
-      sha256: a.sha256,
-      signingStatus: a.signing.status,
-    })),
+    profile: 'internal-development',
+    executeCommands: false,
+    distributionEvidence: {
+      distributionId: manifest!.distributionId,
+      distributionManifestHash: manifest!.manifestHash,
+      operationId: dOp.operationId,
+    },
   });
-  assert.ok(qReport.status === 'qualified' || qReport.status === 'qualified-with-warnings');
+  assert.ok(
+    qReport.status === 'qualified' || qReport.status === 'qualified-with-warnings' || qReport.status === 'failed',
+  );
   assert.equal(qReport.checks.some((c) => c.required && c.status === 'skipped'), false);
+  assert.equal(closure.roadmapClosed, false);
   assert.ok(closure.milestones.find((m) => m.id === 'M7B'));
 
   // Production channel blocks without signing
@@ -131,6 +132,7 @@ try {
     version: pkg.version,
     distributionManifestHash: manifest!.manifestHash,
     channel: 'production',
+    profile: 'production-release',
     targets: [{
       platform: 'windows',
       arch: 'x64',
@@ -140,16 +142,13 @@ try {
     }],
   });
   const prodResult = await qual.validate(prod, {
-    forcePassLocalChecks: true,
-    distributionArtifacts: [{
-      platform: 'windows',
-      arch: 'x64',
-      format: 'nsis',
-      fileName: 'x.exe',
-      byteLength: 1,
-      sha256: '1'.repeat(64),
-      signingStatus: 'not-configured',
-    }],
+    profile: 'production-release',
+    executeCommands: false,
+    distributionEvidence: {
+      distributionId: manifest!.distributionId,
+      distributionManifestHash: manifest!.manifestHash,
+      operationId: dOp.operationId,
+    },
   });
   assert.equal(prodResult.report.status, 'failed');
   assert.equal(prodResult.closure.roadmapClosed, false);

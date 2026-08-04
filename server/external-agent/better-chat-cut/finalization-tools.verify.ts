@@ -161,17 +161,18 @@ try {
   });
   const rc = await runFinalizationControlTool('release_candidate_validate', {
     plan: rcPlan,
-    distributionArtifacts: full.plan.targets.map((t) => ({
-      platform: t.platform,
-      arch: t.arch,
-      format: t.formats[0],
-      fileName: 'stub',
-      byteLength: 1,
-      sha256: 'f'.repeat(64),
-      signingStatus: 'not-requested',
-    })),
-  }) as { report: { status: string } };
+    profile: 'internal-development',
+    executeCommands: false,
+    distributionEvidence: {
+      distributionId: status.manifest && 'distributionId' in status.manifest
+        ? (status.manifest as { distributionId?: string }).distributionId
+        : '',
+      distributionManifestHash: status.manifest!.manifestHash,
+      operationId: op.operationId,
+    },
+  }) as { report: { status: string }; closure: { roadmapClosed: boolean } };
   assert.ok(rc.report);
+  assert.equal(rc.closure.roadmapClosed, false);
 
   setFinalizationServicesForTests({
     distribution: null,

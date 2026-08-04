@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "description": "Roadmap closure required targets for Better Chat Cut (M7B.1). Production signing is not required for unsigned internal/candidate closure.",
+  "requiredTargets": [
+    {
+      "platform": "web-development",
+      "evidenceSource": "current-host",
+      "signingRequired": false,
+      "notarizationRequired": false
+    },
+    {
+      "platform": "current-host-desktop",
+      "evidenceSource": "current-host",
+      "signingRequired": false,
+      "notarizationRequired": false,
+      "notes": "Resolved to the host OS (windows|macos|linux) + arch at qualification time. Must be a real package, not a stub/dry-run."
+    }
+  ],
+  "optionalTargets": [
+    {
+      "platform": "macos",
+      "arch": "arm64",
+      "evidenceSource": "ci"
+    },
+    {
+      "platform": "macos",
+      "arch": "x64",
+      "evidenceSource": "ci"
+    },
+    {
+      "platform": "windows",
+      "arch": "x64",
+      "evidenceSource": "ci"
+    },
+    {
+      "platform": "linux",
+      "arch": "x64",
+      "evidenceSource": "ci"
+    }
+  ]
+}

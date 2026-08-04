@@ -197,6 +197,10 @@ export function createDistributionBuildService(
               : [],
           },
           downloadUrl: `/api/better-chat-cut/distribution/operations/${op.operationId}/artifacts/${encodeURIComponent(fileName)}`,
+          // M7B.1: stub/dry-run markers so roadmap-closure rejects these as target evidence
+          buildMode: dryRun ? 'stub' : 'stub',
+          dryRun: true,
+          stub: true,
         });
       }
 

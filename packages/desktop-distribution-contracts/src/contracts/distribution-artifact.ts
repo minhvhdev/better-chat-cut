@@ -16,4 +16,12 @@ export type DesktopDistributionArtifactV1 = {
   signing: DesktopArtifactSigningResultV1;
   /** Opaque download URL for same-origin API (no physical path). */
   downloadUrl: string;
+  /**
+   * Evidence markers (M7B.1):
+   * - stub/dry-run artifacts must never satisfy roadmap-closure / production-release targets
+   * - real current-host packages use buildMode=real, dryRun=false, stub=false
+   */
+  buildMode?: 'real' | 'stub';
+  dryRun?: boolean;
+  stub?: boolean;
 };

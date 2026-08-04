@@ -72,6 +72,8 @@ export type ReleaseCandidatePlanV1 = {
   targets: ReleaseQualificationTargetV1[];
   requiredChecks: string[];
   optionalChecks: string[];
+  /** Qualification profile — optional for hash-compat with M7B plans without profile. */
+  profile?: 'unit-test' | 'internal-development' | 'roadmap-closure' | 'production-release';
   previousVersionFixture?: {
     version: string;
     installerArtifactId?: string;
